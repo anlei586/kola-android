@@ -1,6 +1,6 @@
 package com.imkola.client.site.presenter.impl;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.ChatSession;
 import com.imkola.client.bean.Site;
 import com.imkola.client.bean.SiteAddress;
@@ -124,31 +124,31 @@ public class SitePresenter implements ISitePresenter {
 
     @Override
     public void checkCommonBaseTable() {
-        AkxDBManager.getCommonDBHelper(ZalyApplication.getContext()).checkBaseTable();
+        AkxDBManager.getCommonDBHelper(KolaApplication.getContext()).checkBaseTable();
     }
 
     private void checkCommonSiteTable() {
-        AkxDBManager.getCommonDBHelper(ZalyApplication.getContext()).checkBaseTable();
+        AkxDBManager.getCommonDBHelper(KolaApplication.getContext()).checkBaseTable();
     }
 
 
     private void checkCommonUserIdentityTable() {
-        AkxDBManager.getCommonDBHelper(ZalyApplication.getContext()).checkBaseTable();
+        AkxDBManager.getCommonDBHelper(KolaApplication.getContext()).checkBaseTable();
     }
 
     @Override
     public void checkSiteBaseTable(String siteAddress) {
-        AkxDBManager.getSiteDBHelper(ZalyApplication.getContext(), ZalyApplication.getSiteAddressObj(siteAddress)).checkSiteTable();
+        AkxDBManager.getSiteDBHelper(KolaApplication.getContext(), KolaApplication.getSiteAddressObj(siteAddress)).checkSiteTable();
     }
 
     @Override
     public void dropCommonBaseTable() {
-        AkxDBManager.getCommonDBHelper(ZalyApplication.getContext()).dropBaseTable();
+        AkxDBManager.getCommonDBHelper(KolaApplication.getContext()).dropBaseTable();
     }
 
     @Override
     public void dropSiteBaseTable(SiteAddress siteAddress) {
-        AkxDBManager.getSiteDBHelper(ZalyApplication.getContext(), siteAddress).dropSiteTable();
+        AkxDBManager.getSiteDBHelper(KolaApplication.getContext(), siteAddress).dropSiteTable();
     }
 
     @Override
@@ -183,27 +183,27 @@ public class SitePresenter implements ISitePresenter {
 
     @Override
     public List<ChatSession> getChatSessionList(String siteAddress) {
-        SiteAddress address = ZalyApplication.getSiteAddressObj(siteAddress);
+        SiteAddress address = KolaApplication.getSiteAddressObj(siteAddress);
         return SiteChatSessionDao.getInstance(address).queryChatSessions();
     }
 
     @Override
     public boolean insertChatSession(String siteAddress, ChatSession chatSession) {
-        SiteAddress address = ZalyApplication.getSiteAddressObj(siteAddress);
+        SiteAddress address = KolaApplication.getSiteAddressObj(siteAddress);
         SiteChatSessionDao.getInstance(address).insertChatSession(chatSession);
         return false;
     }
 
     @Override
     public long getChatSessionByChatSessionId(String siteAddress, String chatSessionId) {
-        SiteAddress address = ZalyApplication.getSiteAddressObj(siteAddress);
+        SiteAddress address = KolaApplication.getSiteAddressObj(siteAddress);
         return SiteChatSessionDao.getInstance(address).queryChatSessionByChatSessionId(chatSessionId);
     }
 
     @Override
     public void deleteCommonDB() {
         AkxCommonDao.getInstance().removeDaoObject();
-        AkxDBManager.deleteCommonDb(ZalyApplication.getContext());
+        AkxDBManager.deleteCommonDb(KolaApplication.getContext());
     }
 
     @Override
@@ -212,7 +212,7 @@ public class SitePresenter implements ISitePresenter {
         SiteMessageDao.getInstance(siteAddress).removeMessageDaoMap(siteAddress);
         SiteGroupProfileDao.getInstance(siteAddress).removeGroupProfileDaoMap(siteAddress);
         SiteUserProfileDao.getInstance(siteAddress).removeUserProfileDaoMap(siteAddress);
-        AkxDBManager.deleteSiteInnerDB(ZalyApplication.getContext(), siteAddress);
+        AkxDBManager.deleteSiteInnerDB(KolaApplication.getContext(), siteAddress);
     }
 
     @Override
@@ -228,7 +228,7 @@ public class SitePresenter implements ISitePresenter {
 
     @Override
     public Site getSiteUser(String address) {
-        SiteAddress siteAddress = ZalyApplication.getSiteAddressObj(address);
+        SiteAddress siteAddress = KolaApplication.getSiteAddressObj(address);
         return AkxCommonDao.getInstance().querySiteInfo(siteAddress);
     }
 

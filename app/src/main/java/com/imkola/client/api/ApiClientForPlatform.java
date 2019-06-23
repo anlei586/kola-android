@@ -1,7 +1,7 @@
 package com.imkola.client.api;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.Site;
 import com.imkola.client.constant.ServerConfig;
 import com.imkola.client.socket.TransportPackageForResponse;
@@ -88,8 +88,8 @@ public class ApiClientForPlatform {
      */
     public ApiPlatformLogoutProto.ApiPlatformLogoutResponse platformLogout() throws Exception {
         ApiPlatformLogoutProto.ApiPlatformLogoutRequest request = ApiPlatformLogoutProto.ApiPlatformLogoutRequest.newBuilder()
-                .setDeviceIdPubk(ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY))
-                .setUserIdPubk(ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY)).build();
+                .setDeviceIdPubk(KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY))
+                .setUserIdPubk(KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY)).build();
         TransportPackageForResponse response = this.client.sendRequest(API_PLATFORM_LOGOUT, request);
         return ApiPlatformLogoutProto.ApiPlatformLogoutResponse.parseFrom(response.data.getData());
     }
@@ -104,9 +104,9 @@ public class ApiClientForPlatform {
      */
     public ApiPlatformLoginProto.ApiPlatformLoginResponse loginPlatform(String userSignBase64, String deviceSignBase64) throws Exception {
         ApiPlatformLoginProto.ApiPlatformLoginRequest request = ApiPlatformLoginProto.ApiPlatformLoginRequest.newBuilder()
-                .setUserDeviceIdPubk(ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY))
+                .setUserDeviceIdPubk(KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY))
                 .setUserIdSignBase64(userSignBase64)
-                .setUserIdPubk(ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY))
+                .setUserIdPubk(KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY))
                 .setUserDeviceIdSignBase64(deviceSignBase64)
                 .setUserDeviceName(DeviceUtils.getDeviceName())
                 .build();
@@ -152,8 +152,8 @@ public class ApiClientForPlatform {
         ApiUserRealNameProto.ApiUserRealNameRequest request = ApiUserRealNameProto.ApiUserRealNameRequest.newBuilder()
                 .setPhoneId(phone)
                 .setPhoneVerifyCode(verifyCode)
-                .setUserIdPrik(ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY))
-                .setUserIdPubk(ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY))
+                .setUserIdPrik(KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY))
+                .setUserIdPubk(KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY))
                 .setCountryCode(ServerConfig.CHINA_COUNTRY_CODE)
                 .setVcType(PhoneProto.VCType.PHONE_REALNAME_VALUE)
                 .build();

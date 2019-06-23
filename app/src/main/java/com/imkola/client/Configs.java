@@ -102,7 +102,7 @@ public abstract class Configs {
 
 
     public static String getGlobalUserId() {
-        String pubKey = ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
+        String pubKey = KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
         String globalUserId = StringUtils.getGlobalUserIdHash(pubKey);
         return globalUserId;
     }

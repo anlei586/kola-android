@@ -1,7 +1,7 @@
 package com.imkola.client.platform.task;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -26,7 +26,7 @@ public class GetUserPhoneTask extends ZalyTaskExecutor.Task<Void, Void, ApiUserP
     @Override
     protected void onTaskSuccess(ApiUserPhoneProto.ApiUserPhoneResponse apiUserPhoneResponse) {
         super.onTaskSuccess(apiUserPhoneResponse);
-        ZalyApplication.getCfgSP().putKey(Configs.PHONE_ID, apiUserPhoneResponse.getPhoneId());
+        KolaApplication.getCfgSP().putKey(Configs.PHONE_ID, apiUserPhoneResponse.getPhoneId());
     }
 
     @Override

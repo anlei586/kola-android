@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.Site;
@@ -103,7 +103,7 @@ public class FriendApplyListActivity extends BaseActivity implements FriendApply
 
         @Override
         protected void onCacheTask() {
-            String cacheFriendList = ZalyApplication.getCfgSP().getString(currentSite.getSiteIdentity() + SiteConfig.FRIEND_APPLY_LIST);
+            String cacheFriendList = KolaApplication.getCfgSP().getString(currentSite.getSiteIdentity() + SiteConfig.FRIEND_APPLY_LIST);
             if (!StringUtils.isEmpty(cacheFriendList)) {
                 byte[] data = Base64.decode(cacheFriendList, Base64.NO_WRAP);
                 try {
@@ -123,7 +123,7 @@ public class FriendApplyListActivity extends BaseActivity implements FriendApply
         @Override
         protected void onTaskSuccess(ApiFriendApplyListProto.ApiFriendApplyListResponse apiFriendApplyListResponse) {
             super.onTaskSuccess(apiFriendApplyListResponse);
-            ZalyApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.FRIEND_APPLY_LIST, Base64.encodeToString(apiFriendApplyListResponse.toByteArray(), Base64.NO_WRAP));
+            KolaApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.FRIEND_APPLY_LIST, Base64.encodeToString(apiFriendApplyListResponse.toByteArray(), Base64.NO_WRAP));
             displayUI(apiFriendApplyListResponse);
         }
 
@@ -132,7 +132,7 @@ public class FriendApplyListActivity extends BaseActivity implements FriendApply
                 adapter.removeAllItem();
                 emptyTv.setVisibility(View.VISIBLE);
                 emptyTv.setText(R.string.empty_friend_apply_list);
-                ZalyApplication.getCfgSP().put(currentSite.getSiteIdentity() + KEY_NEW_APPLY_FRIEND, false);
+                KolaApplication.getCfgSP().put(currentSite.getSiteIdentity() + KEY_NEW_APPLY_FRIEND, false);
                 return;
             }
             emptyTv.setVisibility(View.GONE);
@@ -196,11 +196,11 @@ public class FriendApplyListActivity extends BaseActivity implements FriendApply
             Toaster.show(String.format(getString(R.string.accept_friend_application), adapter.getItemUsername(position)));
             adapter.removeItem(position);
             if (adapter.getItemCount() == 0) {
-                ZalyApplication.getCfgSP().put(currentSite.getSiteIdentity() + KEY_NEW_APPLY_FRIEND, false);
+                KolaApplication.getCfgSP().put(currentSite.getSiteIdentity() + KEY_NEW_APPLY_FRIEND, false);
                 try {
                     Intent intent = new Intent(ZalyMainActivity.CHECK_BUDDLE);
                     intent.setPackage(PackageSign.getPackage());
-                    ZalyApplication.getContext().sendBroadcast(intent);
+                    KolaApplication.getContext().sendBroadcast(intent);
                 } catch (Exception e) {
                     Logger.e(TAG, e);
                 }

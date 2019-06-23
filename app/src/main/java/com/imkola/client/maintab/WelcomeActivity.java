@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.activitys.LoginActivity;
 import com.imkola.client.bean.Site;
 import com.imkola.client.bean.User;
@@ -72,7 +72,7 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     public void onLoadData() {
         doMainLogic();
-        ZalyApplication.active = true;
+        KolaApplication.active = true;
     }
 
     private void doMainLogic() {
@@ -176,12 +176,12 @@ public class WelcomeActivity extends BaseActivity {
                 return;
             }
             //查找当前站点
-            String curSiteIndentity = ZalyApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
+            String curSiteIndentity = KolaApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
 
             if (StringUtils.isEmpty(curSiteIndentity)) {
                 for (Site site : sites) {
                     if (site.getSiteStatus() == Site.STATUS_SITE_ONLINE) {
-                        ZalyApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
+                        KolaApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
                         s = site;
                         break;
                     }

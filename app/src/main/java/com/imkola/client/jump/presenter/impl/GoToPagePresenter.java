@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.activitys.SiteConnListActivity;
 import com.imkola.client.bean.Site;
 import com.imkola.client.bridge.PluginWebActivity;
@@ -98,11 +98,11 @@ public class GoToPagePresenter implements IGotoPagePresenter {
     @Override
     public Intent handleGotoPage(Context context, String url, Boolean isIntent) {
         if (!StringUtils.isEmpty(url)) {
-            ZalyApplication.setGotoUrl(url);
+            KolaApplication.setGotoUrl(url);
             parseUrl(url);
             return handleJumpByType(context, isIntent);
         }
-        ZalyApplication.setGotoUrl("");
+        KolaApplication.setGotoUrl("");
         return null;
     }
 
@@ -148,7 +148,7 @@ public class GoToPagePresenter implements IGotoPagePresenter {
     public Intent getJumpIntent(Context context, String url) {
         Uri uri = Uri.parse(url);
         if (validScheme(uri)) {
-            ZalyApplication.setGotoUrl(url);
+            KolaApplication.setGotoUrl(url);
             switch (uri.getPath()) {
                 case PATH_GOTO:
                     return getActivityIntentFromParams(context, uri);
@@ -190,11 +190,11 @@ public class GoToPagePresenter implements IGotoPagePresenter {
         getCurrentSite(uri);
         Map<String, String> params = getQueryMap(uri);
         String value = params.get(KEY_ACTIVITY);
-        String currentSiteIndenty = ZalyApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
+        String currentSiteIndenty = KolaApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
         try {
             if (currentSiteIndenty != null && !currentSiteIndenty.equals(currentSite.getSiteIdentity())) {
                 ////TODO  跳转，非当前站点，弹框提示用户是否切换站点
-                Intent intent = new Intent(ZalyApplication.getContext(), SiteConnListActivity.class);
+                Intent intent = new Intent(KolaApplication.getContext(), SiteConnListActivity.class);
                 intent.putExtra(IntentKey.KEY_MODE, IntentKey.AUTO_MODE_NORMAL);
                 intent.putExtra(IntentKey.KEY_CURRENT_SITE, currentSite);
                 intent.putExtra(IntentKey.KEY_CURRENT_SITE_ADDRESS, currentSite.getSiteAddress());

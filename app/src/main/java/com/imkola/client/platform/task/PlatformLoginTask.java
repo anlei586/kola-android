@@ -1,7 +1,7 @@
 package com.imkola.client.platform.task;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -22,19 +22,19 @@ public class PlatformLoginTask extends ZalyTaskExecutor.Task<Void, Void, ApiPlat
     @Override
     protected ApiPlatformLoginProto.ApiPlatformLoginResponse executeTask(Void... voids) throws Exception {
 
-        Long prevTime = ZalyApplication.getCfgSP().getLong(ServerConfig.PLATFORM_INDENTIY + SiteConfig.SITE_LOGIN_BY_AUTH_FAIL, ServerConfig.PLATFORM_PROT);
+        Long prevTime = KolaApplication.getCfgSP().getLong(ServerConfig.PLATFORM_INDENTIY + SiteConfig.SITE_LOGIN_BY_AUTH_FAIL, ServerConfig.PLATFORM_PROT);
         Long nowTime = System.currentTimeMillis();
         ZalyLogUtils.getInstance().info(TAG, " platform by error.session");
 
         if (prevTime != ServerConfig.PLATFORM_PROT && (nowTime - prevTime < expireTime)) {
             return null;
         }
-        ZalyApplication.getCfgSP().put(ServerConfig.PLATFORM_INDENTIY + SiteConfig.SITE_LOGIN_BY_AUTH_FAIL, System.currentTimeMillis());
+        KolaApplication.getCfgSP().put(ServerConfig.PLATFORM_INDENTIY + SiteConfig.SITE_LOGIN_BY_AUTH_FAIL, System.currentTimeMillis());
 
         ZalyLogUtils.getInstance().info(TAG, " platform by error session");
-        String userPrivKeyPem  = ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
-        String userPubKeyPem   = ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
-        String devicePubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
+        String userPrivKeyPem  = KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
+        String userPubKeyPem   = KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
+        String devicePubKeyPem = KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
 
         String userSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivKeyPem, userPubKeyPem);
         String deviceSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivKeyPem, devicePubKeyPem);

@@ -19,8 +19,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -157,7 +157,7 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
         exitPhoneBtnLogin = exitPhoneView.findViewById(R.id.vp_exit_phone_btn_login);
         exitPhoneTvShowPhone = exitPhoneView.findViewById(R.id.vp_exit_phone_tv_show_phone);
 
-        String phoneNum = ZalyApplication.getCfgSP().getKey(Configs.PHONE_ID);
+        String phoneNum = KolaApplication.getCfgSP().getKey(Configs.PHONE_ID);
 
         exitPhoneTvShowPhone.setText(phoneNum);
         exitPhoneBtnLogin.setOnClickListener(this);
@@ -303,8 +303,8 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
      */
     class ApiPlatformRegisterTask extends ZalyTaskExecutor.Task<Void, Void, ApiPlatformRegisterByPhoneProto.ApiPlatformRegisterByPhoneResponse> {
 
-        String userPrivKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
-        String userPubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
+        String userPrivKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
+        String userPubKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
 
         @Override
         protected ApiPlatformRegisterByPhoneProto.ApiPlatformRegisterByPhoneResponse executeTask(Void... voids) throws Exception {
@@ -363,8 +363,8 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
                                                 dialog.dismiss();
                                                 break;
                                             case POSITIVE:
-                                                ZalyApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, platformPubk);
-                                                ZalyApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, platformPrik);
+                                                KolaApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, platformPubk);
+                                                KolaApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, platformPrik);
                                                 User user = new User();
                                                 user.setGlobalUserId(StringUtils.getGlobalUserIdHash(platformPubk));
                                                 user.setIdentityName(ServerConfig.LOGIN_WITH_PHONE_NAME);
@@ -372,8 +372,8 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
                                                 int flag = SitePresenter.getInstance().delUserIdentity();
                                                 if (flag > 0) {
                                                     // 清理每个站点下的DB
-                                                    if (ZalyApplication.siteList != null) {
-                                                        for (Site site : ZalyApplication.siteList) {
+                                                    if (KolaApplication.siteList != null) {
+                                                        for (Site site : KolaApplication.siteList) {
                                                             IMClient.getInstance(site.toSiteAddress()).disconnect();
                                                         }
                                                     }
@@ -552,7 +552,7 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
 
     protected void registerSiteAndLogin() {
         ApiSiteRegisterProto.ApiSiteRegisterRequest.Builder builder = ApiSiteRegisterProto.ApiSiteRegisterRequest.newBuilder();
-        String phoneToken = ZalyApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + loginSite.getSiteAddress());
+        String phoneToken = KolaApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + loginSite.getSiteAddress());
         if (loginSite.getCodeConfig() == ConfigProto.InviteCodeConfig.UIC_YES_VALUE) {
             vcCode = inviteViewEtSiteInviteNum.getEditText().getText().toString().trim();
             if (StringUtils.isEmpty(vcCode)) {
@@ -572,7 +572,7 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
         }
         loginSite.setSiteUserName(userName);
         builder.setUserName(userName);
-        builder.setUserIdPubk(ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
+        builder.setUserIdPubk(KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
 
         if (userImgUri == null) {
             Toaster.showInvalidate("请选择用户头像");
@@ -607,8 +607,8 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
         protected void onTaskSuccess(ApiPhoneApplyTokenProto.ApiPhoneApplyTokenResponse apiPhoneApplyTokenResponse) {
             super.onTaskSuccess(apiPhoneApplyTokenResponse);
             //写入phoneId
-            ZalyApplication.getCfgSP().putKey(Configs.PHONE_ID, apiPhoneApplyTokenResponse.getPhoneId());
-            ZalyApplication.getCfgSP().putKey(Configs.PHONE_TOKEN + "_" + loginSite.getSiteAddress(), apiPhoneApplyTokenResponse.getPhoneToken());
+            KolaApplication.getCfgSP().putKey(Configs.PHONE_ID, apiPhoneApplyTokenResponse.getPhoneId());
+            KolaApplication.getCfgSP().putKey(Configs.PHONE_TOKEN + "_" + loginSite.getSiteAddress(), apiPhoneApplyTokenResponse.getPhoneToken());
             ///// 输入手机号绑定页面 改成 已经手机号已经存在的页面， 手机号是 apiPhoneApplyTokenResponse.getPhoneId()
             adapter.updataViewPagerItem(exitPhoneView, views.size() - 1);
 
@@ -640,7 +640,7 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
 
     public void notifyDataSetChanged() {
         adapter.notifyDataSetChanged();
-        phoneNum = ZalyApplication.getCfgSP().getKey(Configs.PHONE_ID);
+        phoneNum = KolaApplication.getCfgSP().getKey(Configs.PHONE_ID);
         exitPhoneTvShowPhone.setText(phoneNum);
     }
 
@@ -677,12 +677,12 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
             }
             ////generate userToken
             String userToken = UUID.randomUUID().toString();
-            ZalyApplication.getCfgSP().put(loginSite.getSiteIdentity() + Configs.SUFFIX_USER_TOKEN, userToken);
+            KolaApplication.getCfgSP().put(loginSite.getSiteIdentity() + Configs.SUFFIX_USER_TOKEN, userToken);
 
-            String phoneToken = ZalyApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + loginSite.getSiteAddress());
-            String userPrivKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
-            String userPubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
-            String devicePubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
+            String phoneToken = KolaApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + loginSite.getSiteAddress());
+            String userPrivKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
+            String userPubKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
+            String devicePubKeyPem = KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
 
             String userSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivKeyPem, userPubKeyPem);
             String deviceSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivKeyPem, devicePubKeyPem);
@@ -761,12 +761,12 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
             //////切换表 存入站点信息
             SitePresenter.getInstance().insertSite(site, apiLoginResponse.getSiteUserId(), apiLoginResponse.getUserSessionId());
 
-            if (ZalyApplication.siteList == null) {
-                ZalyApplication.siteList = new ArrayList<>();
+            if (KolaApplication.siteList == null) {
+                KolaApplication.siteList = new ArrayList<>();
             }
-            ZalyApplication.siteList.add(site);
+            KolaApplication.siteList.add(site);
             //2. 切换至该站点
-            ZalyApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
+            KolaApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
             new SiteUtils().prepareDo(new SiteUtils.SiteUtilsListener() {
                 @Override
                 public void onPrepareSiteMsg(String msg) {
@@ -912,7 +912,7 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
                     .setUserName(userName)
                     .build();
 
-            ZalyApplication.setCurProfile(userProfileDetails);
+            KolaApplication.setCurProfile(userProfileDetails);
 
             //上传完用户资料成功后， 用户身份记录入库, 更新用户头像 site_user_icon
             //将 存入用户身份， 个人信息存入 user_profile， 为了消息的读取。
@@ -969,9 +969,9 @@ public class RegisterActivity extends BaseActivity implements ViewPager.OnPageCh
         @Override
         protected ApiPlatformLoginProto.ApiPlatformLoginResponse executeTask(Void... voids) throws Exception {
 
-            String userPrivKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
-            String userPubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
-            String devicePubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
+            String userPrivKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
+            String userPubKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
+            String devicePubKeyPem = KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
 
             String userSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivKeyPem, userPubKeyPem);
             String deviceSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivKeyPem, devicePubKeyPem);

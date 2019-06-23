@@ -2,7 +2,7 @@ package com.imkola.client.db.dao;
 
 import android.database.sqlite.SQLiteDatabase;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.Site;
 import com.imkola.client.bean.SiteAddress;
 import com.imkola.client.constant.SiteConfig;
@@ -75,7 +75,7 @@ public class ZalyBaseDao {
             siteUserId   = site.getSiteUserId();
             globalUserId = site.getGlobalUserId();
 
-            dbHelper     = AkxDBManager.getSiteDBHelper(ZalyApplication.getContext(), siteAddress, globalUserId);
+            dbHelper     = AkxDBManager.getSiteDBHelper(KolaApplication.getContext(), siteAddress, globalUserId);
             database     = dbHelper.getWritableDatabase();
             daoHelperMap.put(siteAddress.getSiteDBAddress(), database);
         }
@@ -96,7 +96,7 @@ public class ZalyBaseDao {
 
     private static void openCommonDb(){
         synchronized (ZalyBaseDao.class) {
-            dbCommonHelper = AkxDBManager.getCommonDBHelper(ZalyApplication.getContext());
+            dbCommonHelper = AkxDBManager.getCommonDBHelper(KolaApplication.getContext());
             commonDatabase = dbCommonHelper.getWritableDatabase();
             daoCommonHelperMap.put(SiteConfig.DB_COMMON_HELPER, commonDatabase);
         }

@@ -18,7 +18,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.Site;
@@ -425,7 +425,7 @@ public class JsWebViewUtil {
             if (ContextCompat.checkSelfPermission(mContext,
                     android.Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
-                LocationManager lm = (LocationManager) ZalyApplication.getContext().getSystemService(Context.LOCATION_SERVICE);
+                LocationManager lm = (LocationManager) KolaApplication.getContext().getSystemService(Context.LOCATION_SERVICE);
                 if (lm != null)
                     lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                             2000,

@@ -1,6 +1,6 @@
 package com.imkola.client.platform.task;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -58,7 +58,7 @@ public class PlatformLogoutTask extends ZalyTaskExecutor.Task<Void, Void, ApiPla
         @Override
         protected Boolean executeTask(Void... voids) throws Exception {
             // 清理每个站点下的DB
-            DataCleanManager.cleanApplicationData(ZalyApplication.getContext());
+            DataCleanManager.cleanApplicationData(KolaApplication.getContext());
             return true;
         }
 
@@ -68,11 +68,11 @@ public class PlatformLogoutTask extends ZalyTaskExecutor.Task<Void, Void, ApiPla
 //
 //            am.killBackgroundProcesses(PackageSign.getPackage());
 ////            ////TODO 重启代码
-//            Intent mStartActivity = new Intent(ZalyApplication.getContext(), WelcomeActivity.class);
+//            Intent mStartActivity = new Intent(KolaApplication.getContext(), WelcomeActivity.class);
 /////            int mPendingIntentId = 123456;
 //            mStartActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-/////            PendingIntent mPendingIntent = PendingIntent.getActivity(ZalyApplication.getContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-//            AlarmManager mgr = (AlarmManager) ZalyApplication.getContext().getSystemService(Context.ALARM_SERVICE);
+/////            PendingIntent mPendingIntent = PendingIntent.getActivity(KolaApplication.getContext(), mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
+//            AlarmManager mgr = (AlarmManager) KolaApplication.getContext().getSystemService(Context.ALARM_SERVICE);
 /////            mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
            // android.os.Process.killProcess(android.os.Process.myPid());
         }

@@ -35,8 +35,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.activitys.ScanQRCodeActivity;
 import com.imkola.client.activitys.ShareQRCodeActivity;
 import com.imkola.client.activitys.SiteConnListActivity;
@@ -693,7 +693,7 @@ public class ZalyMainActivity extends BaseActivity
                                     return;
                                 }
                                 ZalyLogUtils.getInstance().info(TAG, " 不是当前站点");
-                                ZalyApplication.getCfgSP().put(siteIdentity + KEY_NEW_APPLY_FRIEND, true);
+                                KolaApplication.getCfgSP().put(siteIdentity + KEY_NEW_APPLY_FRIEND, true);
                                 if (siteIdentity.equals(currentSite.getSiteIdentity())) {
                                     // 通知 ContactsFragment 更新气泡
                                     EventBus.getDefault().post(new AppEvent(AppEvent.ACTION_NEW_FRIEND, null));
@@ -735,7 +735,7 @@ public class ZalyMainActivity extends BaseActivity
         protected void onTaskSuccess(List<Site> sites) {
             super.onTaskSuccess(sites);
             //获取所有站点
-            ZalyApplication.siteList = sites;
+            KolaApplication.siteList = sites;
             //查找当前站点
             for (Site site : sites) {
                 if (site.getSiteIdentity().equals(currentSite.getSiteIdentity())) {
@@ -759,15 +759,15 @@ public class ZalyMainActivity extends BaseActivity
         protected void onTaskSuccess(List<Site> sites) {
             super.onTaskSuccess(sites);
             showContactBubbleForOtherSites = false;
-            ZalyApplication.siteList = sites;
+            KolaApplication.siteList = sites;
             int unreadNum = 0;
             for (Site site : sites) {
                 if (site.getSiteIdentity().equals(currentSite.getSiteIdentity())) {
-                    showContactBubbleForCurrentSite = ZalyApplication.getCfgSP().getBoolean(site.getSiteIdentity() + KEY_NEW_APPLY_FRIEND);
+                    showContactBubbleForCurrentSite = KolaApplication.getCfgSP().getBoolean(site.getSiteIdentity() + KEY_NEW_APPLY_FRIEND);
                     continue;
                 }
                 if (!site.isMute()) unreadNum += site.getUnreadNum();
-                Boolean isApplyFriend = ZalyApplication.getCfgSP().getBoolean(site.getSiteIdentity() + KEY_NEW_APPLY_FRIEND);
+                Boolean isApplyFriend = KolaApplication.getCfgSP().getBoolean(site.getSiteIdentity() + KEY_NEW_APPLY_FRIEND);
                 if (isApplyFriend) {
                     showContactBubbleForOtherSites = true;
                 }
@@ -782,16 +782,16 @@ public class ZalyMainActivity extends BaseActivity
      * 获得手机IMEI号
      */
     public void getIMEI() {
-        String deviceId = ZalyApplication.getCfgSP().getString(DEVICE_IMEI);
+        String deviceId = KolaApplication.getCfgSP().getString(DEVICE_IMEI);
         if (TextUtils.isEmpty(deviceId)) {
-            TelephonyManager telephonyManager = (TelephonyManager) ZalyApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager telephonyManager = (TelephonyManager) KolaApplication.getContext().getSystemService(Context.TELEPHONY_SERVICE);
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 return;
             }
             deviceId = telephonyManager.getDeviceId();
             if (!TextUtils.isEmpty(deviceId)) {
-                ZalyApplication.getCfgSP().put(DEVICE_IMEI, deviceId);
+                KolaApplication.getCfgSP().put(DEVICE_IMEI, deviceId);
             }
         }
     }

@@ -1,7 +1,7 @@
 package com.imkola.client.platform.task;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -25,7 +25,7 @@ public class PushAuthTask extends ZalyTaskExecutor.Task<Void, Void, ApiPushAuthP
 
     @Override
     protected ApiPushAuthProto.ApiPushAuthResponse executeTask(Void... voids) throws Exception {
-        String userToken = ZalyApplication.getCfgSP().getString(site.getSiteIdentity() + Configs.SUFFIX_USER_TOKEN);
+        String userToken = KolaApplication.getCfgSP().getString(site.getSiteIdentity() + Configs.SUFFIX_USER_TOKEN);
         return ApiClient.getInstance(ApiClientForPlatform.getPlatformSite()).getPlatformApi().pushAuth(site, userToken);
 
     }

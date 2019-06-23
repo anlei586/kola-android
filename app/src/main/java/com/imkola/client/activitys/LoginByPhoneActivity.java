@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.bean.User;
 import com.imkola.client.bean.event.LoginEvent;
 import com.imkola.client.constant.IntentKey;
@@ -192,8 +192,8 @@ public class LoginByPhoneActivity extends BaseMVPActivity<LoginByPhoneContract.V
 
     @Override
     public void onGenerateNewIdentityError() {
-        if (StringUtils.isNotEmpty(ZalyApplication.getGotoUrl())) {
-            ZalyApplication.setGotoUrl("");
+        if (StringUtils.isNotEmpty(KolaApplication.getGotoUrl())) {
+            KolaApplication.setGotoUrl("");
         }
     }
 
@@ -213,7 +213,7 @@ public class LoginByPhoneActivity extends BaseMVPActivity<LoginByPhoneContract.V
 
     @Override
     public void onGenerateLocalIdentityError() {
-        ZalyApplication.setGotoUrl("");
+        KolaApplication.setGotoUrl("");
         Toaster.showInvalidate("生成匿名账户失败，请稍候再试");
     }
 
@@ -239,8 +239,8 @@ public class LoginByPhoneActivity extends BaseMVPActivity<LoginByPhoneContract.V
                                 dialog.dismiss();
                                 break;
                             case POSITIVE:
-                                ZalyApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, platformPubk);
-                                ZalyApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, platformPrik);
+                                KolaApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, platformPubk);
+                                KolaApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, platformPrik);
                                 User user = new User();
                                 user.setGlobalUserId(StringUtils.getGlobalUserIdHash(platformPubk));
                                 user.setIdentityName(ServerConfig.LOGIN_WITH_PHONE_NAME);

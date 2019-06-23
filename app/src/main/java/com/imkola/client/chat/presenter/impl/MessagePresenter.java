@@ -3,7 +3,7 @@ package com.imkola.client.chat.presenter.impl;
 import android.os.Bundle;
 import android.util.Base64;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -319,7 +319,7 @@ public class MessagePresenter implements IMessagePresenter {
      */
     @Override
     public void deleteU2Msg(String msgId) {
-        SiteMessageDao.getInstance(ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress())).deleteU2MsgById(msgId);
+        SiteMessageDao.getInstance(KolaApplication.getSiteAddressObj(currentSite.getSiteAddress())).deleteU2MsgById(msgId);
     }
 
     /**
@@ -329,7 +329,7 @@ public class MessagePresenter implements IMessagePresenter {
      */
     @Override
     public void deleteU2MsgByChatSessionId(String chatSessionId) {
-        SiteMessageDao.getInstance(ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress())).deleteU2MsgByChatSessionId(chatSessionId);
+        SiteMessageDao.getInstance(KolaApplication.getSiteAddressObj(currentSite.getSiteAddress())).deleteU2MsgByChatSessionId(chatSessionId);
     }
 
     @Override
@@ -686,7 +686,7 @@ public class MessagePresenter implements IMessagePresenter {
 
         @Override
         protected Message executeTask(Void... voids) throws Exception {
-            SiteAddress siteAddress = ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress());
+            SiteAddress siteAddress = KolaApplication.getSiteAddressObj(currentSite.getSiteAddress());
 
             if (mode == INSERT_MODE) {
                 long _id = SiteMessageDao.getInstance(siteAddress).insertU2Message(message);
@@ -736,7 +736,7 @@ public class MessagePresenter implements IMessagePresenter {
             Long _id = null;
             if (mode == INSERT_MODE) {
                 ////修改信息写入2人消息表
-                SiteAddress siteAddress = ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress());
+                SiteAddress siteAddress = KolaApplication.getSiteAddressObj(currentSite.getSiteAddress());
                 _id = SiteMessageDao.getInstance(siteAddress).insertU2Message(message);
 
             }
@@ -786,7 +786,7 @@ public class MessagePresenter implements IMessagePresenter {
         @Override
         protected Message executeTask(Void... voids) throws Exception {
             Long _id = null;
-            SiteAddress siteAddress = ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress());
+            SiteAddress siteAddress = KolaApplication.getSiteAddressObj(currentSite.getSiteAddress());
 
             if (mode == INSERT_MODE) {
                 ////修改信息写入2人消息表
@@ -1037,7 +1037,7 @@ public class MessagePresenter implements IMessagePresenter {
 
         @Override
         protected List<Message> executeTask(Void... voids) throws Exception {
-            return SiteMessageDao.getInstance(ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress())).queryU2NewMsg(-1, U2_MSG_PAGE_SIZE, chatSessionId);
+            return SiteMessageDao.getInstance(KolaApplication.getSiteAddressObj(currentSite.getSiteAddress())).queryU2NewMsg(-1, U2_MSG_PAGE_SIZE, chatSessionId);
         }
 
         @Override
@@ -1096,7 +1096,7 @@ public class MessagePresenter implements IMessagePresenter {
 
         @Override
         protected List<Message> executeTask(Void... voids) throws Exception {
-            return SiteMessageDao.getInstance(ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress())).queryU2NewMsg(_id, -1, chatSessionId);
+            return SiteMessageDao.getInstance(KolaApplication.getSiteAddressObj(currentSite.getSiteAddress())).queryU2NewMsg(_id, -1, chatSessionId);
         }
 
         @Override

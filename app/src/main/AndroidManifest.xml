@@ -32,14 +32,14 @@
     <uses-permission android:name="${applicationId}.permission.MIPUSH_RECEIVE" />
 
     <application
-        android:name=".ZalyApplication"
+        android:name=".KolaApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="${appname}"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/ZalyAppTheme">
+        android:theme="@style/KolaAppTheme">
 
         <activity
             android:name=".chat.view.impl.MessageActivity"
@@ -164,7 +164,7 @@
             android:name=".maintab.ZalyMainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/ZalyAppTheme"
+            android:theme="@style/KolaAppTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".site.view.LoginWithInputKeyActivity"

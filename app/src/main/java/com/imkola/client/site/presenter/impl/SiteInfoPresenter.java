@@ -3,7 +3,7 @@ package com.imkola.client.site.presenter.impl;
 import android.net.Uri;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -166,7 +166,7 @@ public class SiteInfoPresenter implements ISiteInfoPresenter {
             userFriendBean.setUserName(username);
             userFriendBean.setUserImage(userimgId);
             userFriendBean.setSiteLoginId(siteLoginId);
-            userFriendBean.setUserIdPubk(ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
+            userFriendBean.setUserIdPubk(KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
 
             UserProfilePresenter.getInstance(site).updateSiteUserProfile(userFriendBean);
             iView.onUpdateUserProfileSuccess();
@@ -545,18 +545,18 @@ public class SiteInfoPresenter implements ISiteInfoPresenter {
             IMClient.getInstance(site.toSiteAddress()).disconnect();
             Thread.sleep(1000); // 有意sleep，等待IM断开
             IMClient.removeClient(site.toSiteAddress());
-            SitePresenter.getInstance().deleteSiteDB(ZalyApplication.getSiteAddressObj(site.getSiteAddress()));
+            SitePresenter.getInstance().deleteSiteDB(KolaApplication.getSiteAddressObj(site.getSiteAddress()));
             SitePresenter.getInstance().delSiteInfo(site.getSiteHost(), site.getSitePort());
-            ZalyApplication.getCfgSP().put(site.getSiteIdentity() + KEY_NEW_APPLY_FRIEND, false);
+            KolaApplication.getCfgSP().put(site.getSiteIdentity() + KEY_NEW_APPLY_FRIEND, false);
 
             if (SiteUtils.removeCurrent(site)) {
-                ZalyLogUtils.getInstance().info(TAG, " site list ==" + ZalyApplication.siteList.toString());
+                ZalyLogUtils.getInstance().info(TAG, " site list ==" + KolaApplication.siteList.toString());
                 if (SiteUtils.currentContains(site)) {
                     // 当前站点仍然在站点列表内说明没被删除
                     iView.onDelSiteSuccessAtAnotherSite(site);
-                } else if (ZalyApplication.siteList.size() > 0) {
+                } else if (KolaApplication.siteList.size() > 0) {
                     // 当前站点被删除但仍有其他站点
-                    switchTo(site, ZalyApplication.siteList.get(0));
+                    switchTo(site, KolaApplication.siteList.get(0));
                 } else {
                     // 当前站点被删除且无其他站点
                     iView.onDelSiteSuccessAtCurrentSite(site, null);
@@ -591,7 +591,7 @@ public class SiteInfoPresenter implements ISiteInfoPresenter {
         }
         ZalyLogUtils.getInstance().info(TAG, " site list toSite ==" + toSite.toString());
 
-        ZalyApplication.getCfgSP().put(Configs.KEY_CUR_SITE, toSite.getSiteIdentity());
+        KolaApplication.getCfgSP().put(Configs.KEY_CUR_SITE, toSite.getSiteIdentity());
 
         new SiteUtils().prepareDo(new SiteUtils.SiteUtilsListener() {
             @Override

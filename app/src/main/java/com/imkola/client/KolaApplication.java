@@ -39,8 +39,8 @@ import java.util.Map;
  * Created by yichao on 2017/10/10.
  */
 
-public class ZalyApplication extends Application {
-    public static final String TAG = ZalyApplication.class.getSimpleName();
+public class KolaApplication extends Application {
+    public static final String TAG = KolaApplication.class.getSimpleName();
     public static Map<String, Long> map;
     public static boolean active = false;
     private static Context mContext;
@@ -67,7 +67,7 @@ public class ZalyApplication extends Application {
         Logger.addLogAdapter(new WuerLogAdapter());
         Logger.addLogAdapter(new DiskLogAdapter());
         //当前站点无身份，忽略IM连接
-        if (StringUtils.isEmpty(ZalyApplication.getGlobalUserId())) {
+        if (StringUtils.isEmpty(KolaApplication.getGlobalUserId())) {
             return;
         }
         List<Site> sites = SitePresenter.getInstance().getAllSiteLists();
@@ -147,12 +147,12 @@ public class ZalyApplication extends Application {
      */
     public static List<Site> getOnLineSites() {
         List<Site> onLineSites = new ArrayList<>();
-        if (ZalyApplication.siteList == null) {
+        if (KolaApplication.siteList == null) {
             return null;
         }
-        String currentSiteIndenty = ZalyApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
+        String currentSiteIndenty = KolaApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
 
-        for (Site site : ZalyApplication.siteList) {
+        for (Site site : KolaApplication.siteList) {
             try {
                 if (IMClient.getInstance(site.toSiteAddress()).isConnected() ||
                         site.getSiteIdentity().equals(currentSiteIndenty)) {
@@ -180,7 +180,7 @@ public class ZalyApplication extends Application {
     }
 
     public static void setCurProfile(UserProto.UserProfile curProfile) {
-        ZalyApplication.curProfile = curProfile;
+        KolaApplication.curProfile = curProfile;
     }
 
     public static Context getContext() {
@@ -211,11 +211,11 @@ public class ZalyApplication extends Application {
     }
 
     public static String getUserIdNum() {
-        return ZalyApplication.getCfgSP().getKey(Configs.USER_ID_NUM);
+        return KolaApplication.getCfgSP().getKey(Configs.USER_ID_NUM);
     }
 
     public static void setUserIdNum(int un) {
-        ZalyApplication.getCfgSP().put(Configs.USER_ID_NUM, un);
+        KolaApplication.getCfgSP().put(Configs.USER_ID_NUM, un);
     }
 
     public static void setGotoUrl(String url) {
@@ -241,8 +241,8 @@ public class ZalyApplication extends Application {
     }
 
     public static void setUserInfo(String siteUserId, String userImgId, String username) {
-        ZalyApplication.getCurSP().putKey(SiteConfig.USER_ICON_CACHE + siteUserId, userImgId);
-        ZalyApplication.getCurSP().putKey(SiteConfig.USER_NAME_CACHE + siteUserId, username);
+        KolaApplication.getCurSP().putKey(SiteConfig.USER_ICON_CACHE + siteUserId, userImgId);
+        KolaApplication.getCurSP().putKey(SiteConfig.USER_NAME_CACHE + siteUserId, username);
     }
 
     public static void logProcessInfo(String TAG) {

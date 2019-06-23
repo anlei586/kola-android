@@ -4,7 +4,8 @@ import android.app.ActivityManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import com.imkola.client.ZalyApplication;
+
+import com.imkola.client.KolaApplication;
 import com.imkola.client.im.ZalyIM;
 import com.imkola.client.jump.ZalyGotoPageByPlugin;
 import com.imkola.client.util.NotificationUtils;
@@ -29,7 +30,7 @@ public class DefaultBroadcastReceiver extends BroadcastReceiver {
                         String url = intent.getStringExtra(ZalyIM.KEY_PLATFORM_PUSH_JUMP);
                         ZalyLogUtils.getInstance().info(TAG, "pushJump: " + url);
                         NotificationUtils.showNotification(
-                                ZalyApplication.getContext(),
+                                KolaApplication.getContext(),
                                 1,
                                 pushTitle,
                                 pushContent,

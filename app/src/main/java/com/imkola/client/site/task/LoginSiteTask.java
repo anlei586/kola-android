@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.Site;
@@ -69,13 +69,13 @@ public class LoginSiteTask extends ZalyTaskExecutor.Task<Void, Void, Site> {
 
     @Override
     protected Site executeTask(Void... voids) throws Exception {
-        Long prevTime = ZalyApplication.getCfgSP().getLong(site.getSiteIdentity() + SiteConfig.SITE_LOGIN_BY_AUTH_FAIL, 2021);
+        Long prevTime = KolaApplication.getCfgSP().getLong(site.getSiteIdentity() + SiteConfig.SITE_LOGIN_BY_AUTH_FAIL, 2021);
         Long nowTime = System.currentTimeMillis();
 
         if (prevTime != 2021 && (nowTime - prevTime < expireTime)) {
             return null;
         }
-        ZalyApplication.getCfgSP().put(site.getSiteIdentity() + SiteConfig.SITE_LOGIN_BY_AUTH_FAIL, System.currentTimeMillis());
+        KolaApplication.getCfgSP().put(site.getSiteIdentity() + SiteConfig.SITE_LOGIN_BY_AUTH_FAIL, System.currentTimeMillis());
 
         ZalyLogUtils.getInstance().info(TAG, "imconnection Auth failed. Need login interval  time == " + (nowTime - prevTime));
 
@@ -97,7 +97,7 @@ public class LoginSiteTask extends ZalyTaskExecutor.Task<Void, Void, Site> {
     protected void onTaskSuccess(Site site) {
         if (site != null) {
             String userToken = UUID.randomUUID().toString();
-            ZalyApplication.getCfgSP().put(site.getSiteIdentity() + SUFFIX_USER_TOKEN, userToken);
+            KolaApplication.getCfgSP().put(site.getSiteIdentity() + SUFFIX_USER_TOKEN, userToken);
 
             User user = SitePresenter.getInstance().getUserIdentity();
             if (user == null) {
@@ -113,7 +113,7 @@ public class LoginSiteTask extends ZalyTaskExecutor.Task<Void, Void, Site> {
 
             String userSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivateKeyPem, userPubKeyPem);
             String deviceSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivateKeyPem, devicePubKeyPem);
-            String phoneToken = ZalyApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + site.getSiteAddress());
+            String phoneToken = KolaApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + site.getSiteAddress());
 
             //站点非实名，不调用实名接口
             if (site.getRealNameConfig() == ConfigProto.RealNameConfig.REALNAME_YES_VALUE) {
@@ -237,12 +237,12 @@ class AddSiteAndChangeIdentityTask extends AddSiteTask {
     protected void onTaskSuccess(Long l) {
         super.onTaskSuccess(l);
         // 存入内存
-        if (ZalyApplication.siteList == null) {
-            ZalyApplication.siteList = new ArrayList<>();
+        if (KolaApplication.siteList == null) {
+            KolaApplication.siteList = new ArrayList<>();
         }
-        ZalyApplication.siteList.add(site);
+        KolaApplication.siteList.add(site);
         // 切换至该站点
-        ZalyApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
+        KolaApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
         new SiteUtils().prepareDo(new SiteUtils.SiteUtilsListener() {
             @Override
             public void onPrepareSiteMsg(String msg) {
@@ -265,7 +265,7 @@ class AddSiteAndChangeIdentityTask extends AddSiteTask {
         ZalyTaskExecutor.executeUserTask(TAG, new ApiSettingSiteMuteTask(site));
         ZalyTaskExecutor.executeUserTask(TAG, new ApiUserPushTokenTask());
 
-        Intent intent = new Intent(ZalyApplication.getContext(), ZalyMainActivity.class);
+        Intent intent = new Intent(KolaApplication.getContext(), ZalyMainActivity.class);
         intent.putExtra(IntentKey.KEY_CURRENT_SITE, site);
         mContext.startActivity(intent);
     }

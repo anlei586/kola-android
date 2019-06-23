@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.RemoteException;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.Message;
 import com.imkola.client.constant.PackageSign;
 import com.imkola.client.socket.Connection;
@@ -122,7 +122,7 @@ public class IMClient implements IConnectionHandler {
         Intent intent = new Intent(ZalyIM.CONNECTION_ACTION);
         intent.putExtras(bundle);
         intent.setPackage(PackageSign.getPackage());
-        ZalyApplication.getContext().sendBroadcast(intent);
+        KolaApplication.getContext().sendBroadcast(intent);
     }
 
     /**

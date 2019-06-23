@@ -1,6 +1,6 @@
 package com.imkola.client.group.presenter.impl;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.SiteGroupAPI;
 import com.imkola.client.bean.Site;
 import com.imkola.client.bean.SiteAddress;
@@ -36,7 +36,7 @@ public class GroupPresenter implements IGroupPresenter {
     }
 
     public SiteAddress getCurrentSite() {
-        return ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress());
+        return KolaApplication.getSiteAddressObj(currentSite.getSiteAddress());
     }
 
 
@@ -49,7 +49,7 @@ public class GroupPresenter implements IGroupPresenter {
     @Override
     public UserGroupBean getGroupBeanByGroupId(String siteGroupId, Site site) {
         try {
-            SiteAddress siteAddressObj = ZalyApplication.getSiteAddressObj(site.getSiteAddress());
+            SiteAddress siteAddressObj = KolaApplication.getSiteAddressObj(site.getSiteAddress());
 
             return SiteGroupAPI.getInstance(site).getGroupBeanProfile(siteAddressObj, siteGroupId);
         } catch (Exception e) {

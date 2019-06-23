@@ -10,7 +10,7 @@ import android.support.annotation.Nullable;
 
 import com.imkola.client.BuildConfig;
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.Message;
 import com.imkola.client.bean.event.AppEvent;
 import com.imkola.client.bean.event.MessageEvent;
@@ -76,11 +76,11 @@ public class ZalyDBContentProvider extends ContentProvider {
     @Nullable
     @Override
     public Bundle call(@NonNull String method, @Nullable String arg, @Nullable Bundle bundle) {
-        ZalyApplication.logProcessInfo(TAG);
+        KolaApplication.logProcessInfo(TAG);
         if (bundle != null) {
             bundle.setClassLoader(this.getClass().getClassLoader());
         }
-        String currentSiteIndenty = ZalyApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
+        String currentSiteIndenty = KolaApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
         if(currentSiteIndenty == null) {
             return bundle;
         }
@@ -101,7 +101,7 @@ public class ZalyDBContentProvider extends ContentProvider {
                     }
                     break;
                 case ZalyDbContentHelper.Action.MSG_RECEIVE:
-//                    Vibrator v = (Vibrator) ZalyApplication.getContext().getSystemService(Context.VIBRATOR_SERVICE);
+//                    Vibrator v = (Vibrator) KolaApplication.getContext().getSystemService(Context.VIBRATOR_SERVICE);
 //                    v.vibrate(400);
                     try {
                         ArrayList<Message> messages = bundle.getParcelableArrayList(ZalyDbContentHelper.KEY_MSG_RECEIVE_LIST);

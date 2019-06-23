@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.register.LoginSiteActivity;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
@@ -101,20 +101,20 @@ public class LoginSitePresenter implements ILoginSitePresenter {
     @Override
     public void loginOrRegisterSite(Site site) {
         String userToken = UUID.randomUUID().toString();
-        ZalyApplication.getCfgSP().put(site.getSiteIdentity() + SUFFIX_USER_TOKEN, userToken);
+        KolaApplication.getCfgSP().put(site.getSiteIdentity() + SUFFIX_USER_TOKEN, userToken);
 
-        String userPrivateKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
-        String userPubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
-        String devicePubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
+        String userPrivateKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
+        String userPubKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
+        String devicePubKeyPem = KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
 
         String userSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivateKeyPem, userPubKeyPem);
         String deviceSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivateKeyPem, devicePubKeyPem);
-        String phoneToken = ZalyApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + site.getSiteAddress());
+        String phoneToken = KolaApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + site.getSiteAddress());
 
         ApiSiteLoginProto.ApiSiteLoginRequest request = ApiSiteLoginProto.ApiSiteLoginRequest.newBuilder()
-                .setUserIdPubk(ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY))
+                .setUserIdPubk(KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY))
                 .setUserIdSignBase64(userSignBase64)
-                .setUserDeviceIdPubk(ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY))
+                .setUserDeviceIdPubk(KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY))
                 .setUserDeviceIdSignBase64(deviceSignBase64)
                 .setUserDeviceName(DeviceUtils.getDeviceName())
                 .setUserToken(userToken)
@@ -138,7 +138,7 @@ public class LoginSitePresenter implements ILoginSitePresenter {
         @Override
         protected void onTaskSuccess(List<Site> sites) {
             super.onTaskSuccess(sites);
-            ZalyApplication.siteList = sites;
+            KolaApplication.siteList = sites;
         }
     }
 
@@ -177,7 +177,7 @@ public class LoginSitePresenter implements ILoginSitePresenter {
         protected void onTaskSuccess(Site site) {
             if (site != null) {
                 String userToken = UUID.randomUUID().toString();
-                ZalyApplication.getCfgSP().put(site.getSiteIdentity() + SUFFIX_USER_TOKEN, userToken);
+                KolaApplication.getCfgSP().put(site.getSiteIdentity() + SUFFIX_USER_TOKEN, userToken);
 
                 User user = SitePresenter.getInstance().getUserIdentity();
                 if (user == null) {
@@ -193,7 +193,7 @@ public class LoginSitePresenter implements ILoginSitePresenter {
 
                 String userSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivateKeyPem, userPubKeyPem);
                 String deviceSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivateKeyPem, devicePubKeyPem);
-                String phoneToken = ZalyApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + site.getSiteAddress());
+                String phoneToken = KolaApplication.getCfgSP().getKey(Configs.PHONE_TOKEN + "_" + site.getSiteAddress());
                 loginSiteView.hideProgressDialog();
 
                 //站点非实名，不调用实名接口
@@ -376,12 +376,12 @@ public class LoginSitePresenter implements ILoginSitePresenter {
         protected void onTaskSuccess(Long l) {
             super.onTaskSuccess(l);
             // 存入内存
-            if (ZalyApplication.siteList == null) {
-                ZalyApplication.siteList = new ArrayList<>();
+            if (KolaApplication.siteList == null) {
+                KolaApplication.siteList = new ArrayList<>();
             }
-            ZalyApplication.siteList.add(site);
+            KolaApplication.siteList.add(site);
             // 切换至该站点
-            ZalyApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
+            KolaApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
             new SiteUtils().prepareDo(new SiteUtils.SiteUtilsListener() {
                 @Override
                 public void onPrepareSiteMsg(String msg) {
@@ -413,8 +413,8 @@ public class LoginSitePresenter implements ILoginSitePresenter {
         @Override
         protected void onTaskError(Exception e) {
             ZalyLogUtils.getInstance().errorToInfo(TAG, e.getMessage());
-            if (StringUtils.isNotEmpty(ZalyApplication.getGotoUrl())) {
-                ZalyApplication.setGotoUrl("");
+            if (StringUtils.isNotEmpty(KolaApplication.getGotoUrl())) {
+                KolaApplication.setGotoUrl("");
             }
         }
 
@@ -422,8 +422,8 @@ public class LoginSitePresenter implements ILoginSitePresenter {
         protected void onAPIError(ZalyAPIException zalyAPIException) {
 
             ZalyLogUtils.getInstance().errorToInfo(TAG, zalyAPIException.getMessage());
-            if (StringUtils.isNotEmpty(ZalyApplication.getGotoUrl())) {
-                ZalyApplication.setGotoUrl("");
+            if (StringUtils.isNotEmpty(KolaApplication.getGotoUrl())) {
+                KolaApplication.setGotoUrl("");
             }
         }
     }

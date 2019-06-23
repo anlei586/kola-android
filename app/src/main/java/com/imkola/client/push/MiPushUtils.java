@@ -7,7 +7,7 @@ import android.util.Log;
 
 import com.imkola.client.BuildConfig;
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.util.data.StringUtils;
 import com.xiaomi.channel.commonutils.logger.LoggerInterface;
 import com.xiaomi.mipush.sdk.MiPushClient;
@@ -35,9 +35,9 @@ public class MiPushUtils {
         //初始化push推送服务
         if (shouldInit()) {
             if (BuildConfig.DEBUG) {
-                MiPushClient.registerPush(ZalyApplication.getContext(), APP_ID_DEBUG, APP_KEY_DEBUG);
+                MiPushClient.registerPush(KolaApplication.getContext(), APP_ID_DEBUG, APP_KEY_DEBUG);
             } else {
-                MiPushClient.registerPush(ZalyApplication.getContext(), APP_ID, APP_KEY);
+                MiPushClient.registerPush(KolaApplication.getContext(), APP_ID, APP_KEY);
             }
         }
         //打开Log
@@ -49,21 +49,21 @@ public class MiPushUtils {
 
             @Override
             public void log(String content, Throwable t) {
-                Log.d(ZalyApplication.TAG, content, t);
+                Log.d(KolaApplication.TAG, content, t);
             }
 
             @Override
             public void log(String content) {
-                Log.d(ZalyApplication.TAG, content);
+                Log.d(KolaApplication.TAG, content);
             }
         };
-        com.xiaomi.mipush.sdk.Logger.setLogger(ZalyApplication.getContext(), newLogger);
+        com.xiaomi.mipush.sdk.Logger.setLogger(KolaApplication.getContext(), newLogger);
     }
 
     private static boolean shouldInit() {
-        ActivityManager am = ((ActivityManager) ZalyApplication.getContext().getSystemService(Context.ACTIVITY_SERVICE));
+        ActivityManager am = ((ActivityManager) KolaApplication.getContext().getSystemService(Context.ACTIVITY_SERVICE));
         List<ActivityManager.RunningAppProcessInfo> processInfos = am.getRunningAppProcesses();
-        String mainProcessName = ZalyApplication.getContext().getPackageName();
+        String mainProcessName = KolaApplication.getContext().getPackageName();
         int myPid = Process.myPid();
         for (ActivityManager.RunningAppProcessInfo info : processInfos) {
             if (info.pid == myPid && mainProcessName.equals(info.processName)) {
@@ -76,7 +76,7 @@ public class MiPushUtils {
     public static void setRegId(String id) {
         //放入application中
         if (StringUtils.isNotEmpty(id)) {
-            ZalyApplication.getCfgSP().put(Configs.PUSH_TOKEN, id);
+            KolaApplication.getCfgSP().put(Configs.PUSH_TOKEN, id);
         }
         regId = id;
         Log.d(TAG, "regId: " + id);
@@ -84,7 +84,7 @@ public class MiPushUtils {
 
     public static String getRegId() {
         //先从application获取，在从本地
-        String pushToken = ZalyApplication.getCfgSP().getString(Configs.PUSH_TOKEN);
+        String pushToken = KolaApplication.getCfgSP().getString(Configs.PUSH_TOKEN);
         return StringUtils.isNotBlank(pushToken) ? pushToken : "IS_NULL";
     }
 }

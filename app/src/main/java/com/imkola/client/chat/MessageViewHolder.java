@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.ImageInfo;
@@ -278,7 +278,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
     }
 
     public String loadMsgImgByFileId(ImageInfo imageInfo) {
-        String msgImgPath = ZalyApplication.getCurSP().getKey(SiteConfig.MSG_IMG_CACHE + imageInfo.getFileId());
+        String msgImgPath = KolaApplication.getCurSP().getKey(SiteConfig.MSG_IMG_CACHE + imageInfo.getFileId());
         if (StringUtils.isNotEmpty(msgImgPath)) {
             return msgImgPath;
         }
@@ -314,8 +314,8 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
         if (StringUtils.isEmpty(siteUserId)) {
             return;
         }
-        String userImg = ZalyApplication.getCurSP().getKey(SiteConfig.USER_ICON_CACHE + siteUserId);
-        String userName = ZalyApplication.getCurSP().getKey(SiteConfig.USER_NAME_CACHE + siteUserId);
+        String userImg = KolaApplication.getCurSP().getKey(SiteConfig.USER_ICON_CACHE + siteUserId);
+        String userName = KolaApplication.getCurSP().getKey(SiteConfig.USER_NAME_CACHE + siteUserId);
         if (StringUtils.isNotEmpty(userImg) && StringUtils.isNotEmpty(userName)) {
             msg.setImg(userImg);
             msg.setUserName(userName);
@@ -340,7 +340,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
             UserProto.SimpleUserProfile userProfile = UserProfilePresenter.getInstance(currentSite).queryFriendBySiteUserId(msg.getSiteUserId());
             if (userProfile != null) {
                 // Put db data into cache
-                ZalyApplication.setUserInfo(siteUserId, userProfile.getUserPhoto(), userProfile.getUserName());
+                KolaApplication.setUserInfo(siteUserId, userProfile.getUserPhoto(), userProfile.getUserName());
                 msg.setImg(userProfile.getUserPhoto());
                 msg.setUserName(userProfile.getUserName());
                 if (avatar.getVisibility() == View.VISIBLE) {
@@ -399,7 +399,7 @@ public class MessageViewHolder extends RecyclerView.ViewHolder {
             UserProto.UserProfile userProfile = response.getProfile();
             // Save to db and cache.
             UserProfilePresenter.getInstance(currentSite).insertStrangerFriend(userProfile);
-            ZalyApplication.setUserInfo(siteUserId, userProfile.getUserPhoto(), userProfile.getUserName());
+            KolaApplication.setUserInfo(siteUserId, userProfile.getUserPhoto(), userProfile.getUserName());
 
             message.setImg(userProfile.getUserPhoto());
             message.setUserName(userProfile.getUserName());

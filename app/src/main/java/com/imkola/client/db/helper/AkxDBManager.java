@@ -2,7 +2,7 @@ package com.imkola.client.db.helper;
 
 import android.content.Context;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.db.dao.ZalyBaseDao;
 import com.imkola.client.bean.SiteAddress;
 import com.imkola.client.util.data.StringUtils;
@@ -19,7 +19,7 @@ public class AkxDBManager {
     private static final String AKX_SITE_DB = "akx-%s-%s-db.sqlite";
 
     private static final String TAG = "AkxDBManager";
-    private static String userIdNum = ZalyApplication.getUserIdNum();//第几个用户身份
+    private static String userIdNum = KolaApplication.getUserIdNum();//第几个用户身份
 
 
     //获取应用公共DB操作
@@ -31,7 +31,7 @@ public class AkxDBManager {
 
     //获取每个站点的DB操作
     public static AkxSiteDBHelper getSiteDBHelper(Context context, SiteAddress address) {
-        String globalUserId = ZalyApplication.getGlobalUserId();
+        String globalUserId = KolaApplication.getGlobalUserId();
         if (StringUtils.isNotEmpty(globalUserId)) {
             String dbName = String.format(AKX_SITE_DB, globalUserId, address.getSiteDBAddress());
             return new AkxSiteDBHelper(context, dbName);
@@ -64,7 +64,7 @@ public class AkxDBManager {
      */
     public static void deleteSiteInnerDB(Context context, SiteAddress address) {
         ZalyBaseDao.daoHelperMap = new HashMap<>();
-        String globalUserId = ZalyApplication.getGlobalUserId();
+        String globalUserId = KolaApplication.getGlobalUserId();
         String dbName = String.format(AKX_SITE_DB, globalUserId, address.getSiteDBAddress());
         context.deleteDatabase(dbName);
     }

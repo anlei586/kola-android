@@ -106,7 +106,7 @@ public class GroupContactsActivity extends BaseActivity {
             }
 
 
-//            String cacheFriendList = ZalyApplication.getCfgSP().getString(currentSite.getSiteIdentity() + SiteConfig.GROUP_LIST);
+//            String cacheFriendList = KolaApplication.getCfgSP().getString(currentSite.getSiteIdentity() + SiteConfig.GROUP_LIST);
 //            if (!StringUtils.isEmpty(cacheFriendList)) {
 //                byte[] data = Base64.decode(cacheFriendList, Base64.NO_WRAP);
 //                try {
@@ -130,7 +130,7 @@ public class GroupContactsActivity extends BaseActivity {
             List<GroupProto.SimpleGroupProfile> groupsimpleProfiles = apiGroupListResponse.getListList();
             if (groupsimpleProfiles != null && groupsimpleProfiles.size() > 0) {
                 CacheDiskUtils.getInstance().put(currentSite.getSiteIdentity() + SiteConfig.GROUP_LIST, apiGroupListResponse.toByteArray());
-                //    ZalyApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.GROUP_LIST, Base64.encodeToString(apiGroupListResponse.toByteArray(), Base64.NO_WRAP));
+                //    KolaApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.GROUP_LIST, Base64.encodeToString(apiGroupListResponse.toByteArray(), Base64.NO_WRAP));
             }
             displayUI(apiGroupListResponse);
         }

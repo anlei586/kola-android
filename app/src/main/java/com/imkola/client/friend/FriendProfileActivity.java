@@ -13,8 +13,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.activitys.ImageShowActivity;
 import com.imkola.client.activitys.ShareQRCodeActivity;
 import com.imkola.client.activitys.SiteConnListActivity;
@@ -570,7 +570,7 @@ public class FriendProfileActivity extends BaseActivity implements CompoundButto
             checkoutLoginId(profile.getSiteLoginId(), profile.getUserName(), profile.getNickName());
 
             Integer userRelation = response.getRelationValue();
-            ZalyApplication.setUserInfo(siteUserId, profile.getUserPhoto(), profile.getUserName());
+            KolaApplication.setUserInfo(siteUserId, profile.getUserPhoto(), profile.getUserName());
             if (userRelation == 1) {
                 ////表示是好友
                 UserFriendBean userFriendBean = new UserFriendBean();

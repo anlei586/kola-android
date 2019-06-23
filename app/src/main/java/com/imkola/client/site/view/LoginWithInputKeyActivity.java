@@ -6,8 +6,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.bean.event.LoginEvent;
 import com.imkola.client.maintab.BaseActivity;
 import com.imkola.client.maintab.ZalyMainActivity;
@@ -78,8 +78,8 @@ public class LoginWithInputKeyActivity extends BaseActivity implements View.OnCl
             Toaster.showInvalidate("请输入私钥");
             return;
         }
-        ZalyApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, pubKeyStr);
-        ZalyApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, priKeyStr);
+        KolaApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, pubKeyStr);
+        KolaApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, priKeyStr);
         //生成本机设备公钥
         ZalyTaskExecutor.executeUserTask(TAG, new GenerateNewIdentityTask());
     }
@@ -100,12 +100,12 @@ public class LoginWithInputKeyActivity extends BaseActivity implements View.OnCl
                 return false;
             }
             //一部设备对应一用户密钥对，一设备密钥对，所需要存储在上层配置项
-            SPUtils spUtils = ZalyApplication.getCfgSP();
+            SPUtils spUtils = KolaApplication.getCfgSP();
             spUtils.putKey(Configs.DEVICE_PRI_KEY, deviceKeyPair[0]);
             spUtils.putKey(Configs.DEVICE_PUB_KEY, deviceKeyPair[1]);
 
             //需要新建site表 TODO DBChange 检查站点表， 写入身份
-//            ZalyDbHelper zalyDbHelper = new ZalyDbHelper(ZalyApplication.getContext());
+//            ZalyDbHelper zalyDbHelper = new ZalyDbHelper(KolaApplication.getContext());
 //            zalyDbHelper.checkBaseTable();
             SitePresenter.getInstance().checkCommonBaseTable();
 //            sitePresenter.getInstance().insertUserIdentity("", Configs.getGlobalUserId(), LOGIN_WITH_INPUT);

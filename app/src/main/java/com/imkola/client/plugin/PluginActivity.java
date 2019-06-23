@@ -98,7 +98,7 @@ public class PluginActivity extends BaseActivity {
             }
 
 
-//            String cacheStr = ZalyApplication.getCfgSP().getString(currentSite.getSiteIdentity()+ SiteConfig.PLUGIN_PAGE_LIST);
+//            String cacheStr = KolaApplication.getCfgSP().getString(currentSite.getSiteIdentity()+ SiteConfig.PLUGIN_PAGE_LIST);
 //            if (!StringUtils.isEmpty(cacheStr)) {
 //                byte[] data = Base64.decode(cacheStr, Base64.NO_WRAP);
 //                if(data.length == 0 ){
@@ -130,7 +130,7 @@ public class PluginActivity extends BaseActivity {
 //            String pluginCsgSPKey = currentSite.getSiteIdentity() + SiteConfig.PLUGIN_PAGE_LIST;
 //            // 缓存至本地
             CacheDiskUtils.getInstance().put(currentSite.getSiteIdentity() + SiteConfig.PLUGIN_PAGE_LIST, apiPluginListResponse.toByteArray());
-            // ZalyApplication.getCfgSP().put(pluginCsgSPKey, Base64.encodeToString(apiPluginListResponse.toByteArray(), Base64.NO_WRAP));
+            // KolaApplication.getCfgSP().put(pluginCsgSPKey, Base64.encodeToString(apiPluginListResponse.toByteArray(), Base64.NO_WRAP));
             displayUI(apiPluginListResponse);
         }
 

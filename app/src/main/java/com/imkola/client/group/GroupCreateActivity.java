@@ -141,7 +141,7 @@ public class GroupCreateActivity extends BaseActivity implements ChooseFriendLis
                 ZalyLogUtils.getInstance().errorToInfo(TAG, ex.getMessage());
             }
 
-//            String cacheFriendList = ZalyApplication.getCfgSP().getString(currentSite.getSiteIdentity() + SiteConfig.FRIEND_LIST);
+//            String cacheFriendList = KolaApplication.getCfgSP().getString(currentSite.getSiteIdentity() + SiteConfig.FRIEND_LIST);
 //            if (!StringUtils.isEmpty(cacheFriendList)) {
 //                byte[] data = Base64.decode(cacheFriendList, Base64.NO_WRAP);
 //                try {
@@ -166,7 +166,7 @@ public class GroupCreateActivity extends BaseActivity implements ChooseFriendLis
             List<UserProto.SimpleUserProfile> simpleUserProfiles = response.getListList();
             if (simpleUserProfiles != null) {
                 CacheDiskUtils.getInstance().put(currentSite.getSiteIdentity() + SiteConfig.FRIEND_LIST, response.toByteArray());
-                //  ZalyApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.FRIEND_LIST, Base64.encodeToString(response.toByteArray(), Base64.NO_WRAP));
+                //  KolaApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.FRIEND_LIST, Base64.encodeToString(response.toByteArray(), Base64.NO_WRAP));
             }
             if (simpleUserProfiles == null || simpleUserProfiles.size() == 0) {
                 Toaster.showInvalidate("暂无好友");

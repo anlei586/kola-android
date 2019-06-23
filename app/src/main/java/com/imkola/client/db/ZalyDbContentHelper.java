@@ -5,8 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import com.imkola.client.BuildConfig;
+import com.imkola.client.KolaApplication;
 import com.orhanobut.logger.Logger;
-import com.imkola.client.ZalyApplication;
 
 /**
  * Created by tanjie on 15/12/17.
@@ -18,7 +18,7 @@ public class ZalyDbContentHelper {
     public static Bundle executeAction(String action, Bundle inBundle) {
         try {
             if (contentUri == null) {
-                Context context = ZalyApplication.getContext();
+                Context context = KolaApplication.getContext();
                 String packageName;
                 if (context != null) {
                     packageName = context.getPackageName();
@@ -27,7 +27,7 @@ public class ZalyDbContentHelper {
                 }
                 contentUri = Uri.parse(String.format(ZalyDBContentProvider.CONTENT_AUTHORITY, packageName));
             }
-            return ZalyApplication.getContext().getContentResolver().call(contentUri, action, "null", inBundle);
+            return KolaApplication.getContext().getContentResolver().call(contentUri, action, "null", inBundle);
         } catch (Throwable e) {
             Logger.e(e);
         }

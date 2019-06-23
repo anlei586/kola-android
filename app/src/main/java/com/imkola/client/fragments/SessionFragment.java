@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.adapter.SessionAdapter;
 import com.imkola.client.bean.ChatSession;
 import com.imkola.client.bean.Session;
@@ -117,7 +117,7 @@ public class SessionFragment extends MVPBaseFragment<SessionContract.View, Sessi
         sessionRv.setAdapter(sessionTabAdapter);
 
 
-        if (currentSite == null || ZalyApplication.siteList == null || ZalyApplication.siteList.size() == 0) {
+        if (currentSite == null || KolaApplication.siteList == null || KolaApplication.siteList.size() == 0) {
             bubbleUpdateListener.onSessionBubbleChange(0);
             sessionTabAdapter.removeAllItems();
         }
@@ -188,7 +188,7 @@ public class SessionFragment extends MVPBaseFragment<SessionContract.View, Sessi
 
     @Override
     public void onRefresh() {
-        if (currentSite == null || ZalyApplication.siteList == null || ZalyApplication.siteList.size() == 0) {
+        if (currentSite == null || KolaApplication.siteList == null || KolaApplication.siteList.size() == 0) {
             bubbleUpdateListener.onSessionBubbleChange(0);
             sessionTabAdapter.removeAllItems();
             return;

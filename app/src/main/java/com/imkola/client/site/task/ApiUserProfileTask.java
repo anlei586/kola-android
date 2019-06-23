@@ -1,7 +1,7 @@
 package com.imkola.client.site.task;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.Site;
@@ -48,7 +48,7 @@ public class ApiUserProfileTask extends ZalyTaskExecutor.Task<Void, Void, ApiUse
             userFriendBean.setSiteUserId(profile.getSiteUserId());
             userFriendBean.setUserName(profile.getUserName());
             userFriendBean.setUserImage(profile.getUserPhoto());
-            userFriendBean.setUserIdPubk(ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
+            userFriendBean.setUserIdPubk(KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
             userFriendBean.setSiteLoginId(profile.getSiteLoginId());
             userFriendBean.setSiteNickName(profile.getNickName());
             UserProfilePresenter.getInstance(site).updateSiteUserProfile(userFriendBean, siteAddress);
@@ -74,6 +74,6 @@ public class ApiUserProfileTask extends ZalyTaskExecutor.Task<Void, Void, ApiUse
     @Override
     protected void onTaskSuccess(ApiUserProfileProto.ApiUserProfileResponse response) {
         super.onTaskSuccess(response);
-        ZalyApplication.setCurProfile(response.getUserProfile());
+        KolaApplication.setCurProfile(response.getUserProfile());
     }
 }

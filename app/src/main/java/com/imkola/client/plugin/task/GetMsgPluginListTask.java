@@ -78,7 +78,7 @@ public class GetMsgPluginListTask extends ZalyTaskExecutor.Task<Void, Void, ApiP
             }
         }
 
-//        String cachePluginList = ZalyApplication.getCfgSP().getString(site.getSiteIdentity() + SiteConfig.PLUGIN_MSG_LIST);
+//        String cachePluginList = KolaApplication.getCfgSP().getString(site.getSiteIdentity() + SiteConfig.PLUGIN_MSG_LIST);
 //        if (!StringUtils.isEmpty(cachePluginList)) {
 //            byte[] data = Base64.decode(cachePluginList, Base64.NO_WRAP);
 //            try {
@@ -140,7 +140,7 @@ public class GetMsgPluginListTask extends ZalyTaskExecutor.Task<Void, Void, ApiP
             iMessageView.setExpandViewData(apiPluginListResponse.getPluginList());
         }
         CacheDiskUtils.getInstance().put(site.getSiteIdentity() + SiteConfig.PLUGIN_MSG_LIST, apiPluginListResponse.toByteArray());
-//        ZalyApplication.getCfgSP().put(site.getSiteIdentity() + SiteConfig.PLUGIN_MSG_LIST,
+//        KolaApplication.getCfgSP().put(site.getSiteIdentity() + SiteConfig.PLUGIN_MSG_LIST,
 //                Base64.encodeToString(apiPluginListResponse.toByteArray(), Base64.NO_WRAP));
     }
 }

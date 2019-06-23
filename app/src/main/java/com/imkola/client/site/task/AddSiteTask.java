@@ -1,6 +1,6 @@
 package com.imkola.client.site.task;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.Site;
 import com.imkola.client.db.dao.AkxCommonDao;
@@ -23,7 +23,7 @@ public class AddSiteTask extends ZalyTaskExecutor.Task<Void, Void, Long> {
 
     @Override
     protected Long executeTask(Void... voids) throws Exception {
-        site.setGlobalUserId(ZalyApplication.getGlobalUserId());
+        site.setGlobalUserId(KolaApplication.getGlobalUserId());
         Site siteInfo = SitePresenter.getInstance().getSiteUser(site.getSiteAddress());
         if (siteInfo != null && StringUtils.isNotEmpty(siteInfo.getSiteUserId()) && siteInfo.getSiteUserId().length() > 0) {
             AkxCommonDao.getInstance().updateUserSiteSessionId(site.getSiteHost(), site.getSitePort(), site);

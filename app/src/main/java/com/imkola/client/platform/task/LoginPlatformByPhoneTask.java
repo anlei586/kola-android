@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -55,9 +55,9 @@ public class LoginPlatformByPhoneTask extends ZalyTaskExecutor.Task<Void, Void, 
             return;
         }
 
-        ZalyApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, pubkey);
-        ZalyApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, prikey);
-        ZalyApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
+        KolaApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, pubkey);
+        KolaApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, prikey);
+        KolaApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
 
         //生成本机设备公钥
         user = new User();

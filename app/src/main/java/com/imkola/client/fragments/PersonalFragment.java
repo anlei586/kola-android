@@ -23,7 +23,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.imkola.client.Configs;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.activitys.ImageShowActivity;
 import com.imkola.client.activitys.ShareQRCodeActivity;
 import com.imkola.client.activitys.SiteManageActivity;
@@ -207,7 +207,7 @@ public class PersonalFragment extends MVPBaseFragment<PersonalContract.View, Per
         if (scrollView != null) {
             scrollView.scrollTo(0, 0);
         }
-        String phoneId = StringUtils.hidePhoneNumber(ZalyApplication.getCfgSP().getKey(Configs.PHONE_ID));
+        String phoneId = StringUtils.hidePhoneNumber(KolaApplication.getCfgSP().getKey(Configs.PHONE_ID));
         if (!StringUtils.isEmpty(phoneId)) {
             phoneNum.setText(phoneId);
         } else {
@@ -301,7 +301,7 @@ public class PersonalFragment extends MVPBaseFragment<PersonalContract.View, Per
                 break;
             Site site = sites.get(i);
             siteIcons[i].setVisibility(View.VISIBLE);
-            new ImageUtils(getActivity(), currentSite).loadSiteImage(ZalyApplication.siteList.get(i).getSiteIcon(), siteIcons[i], ZalyApplication.siteList.get(i));
+            new ImageUtils(getActivity(), currentSite).loadSiteImage(KolaApplication.siteList.get(i).getSiteIcon(), siteIcons[i], KolaApplication.siteList.get(i));
 
 //            ZalyGlideModel model = new ZalyGlideModel.Builder()
 //                    .setImageID(site.getSiteIcon())
@@ -646,7 +646,7 @@ public class PersonalFragment extends MVPBaseFragment<PersonalContract.View, Per
         userFriendBean.setUserName(username);
         userFriendBean.setUserImage(userImgId);
         userFriendBean.setSiteLoginId(siteLoginId);
-        userFriendBean.setUserIdPubk(ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
+        userFriendBean.setUserIdPubk(KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
         UserProfilePresenter.getInstance(currentSite).updateSiteUserProfile(userFriendBean);
 
         currentSite.setSiteLoginId(userProfileDetails.getSiteLoginId());
@@ -656,8 +656,8 @@ public class PersonalFragment extends MVPBaseFragment<PersonalContract.View, Per
         ////头像上传成功，之后更新用户表中的数据
         SitePresenter.getInstance().updateSiteUserInfo(currentSite);
         fillUserData();
-        ZalyApplication.setUserInfo(currentSite.getSiteUserId(), userImgId, username);
-        ZalyApplication.setCurProfile(userProfileDetails);
+        KolaApplication.setUserInfo(currentSite.getSiteUserId(), userImgId, username);
+        KolaApplication.setCurProfile(userProfileDetails);
 
     }
 

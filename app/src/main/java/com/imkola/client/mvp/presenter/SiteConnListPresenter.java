@@ -5,8 +5,8 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -111,8 +111,8 @@ public class SiteConnListPresenter extends BasePresenterImpl<SiteConnListContrac
             @Override
             protected void onTaskSuccess(ApiPhoneApplyTokenProto.ApiPhoneApplyTokenResponse apiPhoneApplyTokenResponse) {
                 super.onTaskSuccess(apiPhoneApplyTokenResponse);
-                ZalyApplication.getCfgSP().putKey(Configs.PHONE_ID, apiPhoneApplyTokenResponse.getPhoneId());
-                ZalyApplication.getCfgSP().putKey(Configs.PHONE_TOKEN + "_" + site.getSiteAddress(), apiPhoneApplyTokenResponse.getPhoneToken());
+                KolaApplication.getCfgSP().putKey(Configs.PHONE_ID, apiPhoneApplyTokenResponse.getPhoneId());
+                KolaApplication.getCfgSP().putKey(Configs.PHONE_TOKEN + "_" + site.getSiteAddress(), apiPhoneApplyTokenResponse.getPhoneToken());
             }
 
             @Override
@@ -201,7 +201,7 @@ public class SiteConnListPresenter extends BasePresenterImpl<SiteConnListContrac
         ZalyTaskExecutor.executeUserTask(TAG, new ZalyTaskExecutor.Task<Void, Void, Long>() {
             @Override
             protected Long executeTask(Void... voids) throws Exception {
-                site.setGlobalUserId(ZalyApplication.getGlobalUserId());
+                site.setGlobalUserId(KolaApplication.getGlobalUserId());
                 Site siteInfo = SitePresenter.getInstance().getSiteUser(site.getSiteAddress());
                 if (siteInfo != null && StringUtils.isNotEmpty(siteInfo.getSiteUserId()) && siteInfo.getSiteUserId().length() > 0) {
                     return Long.valueOf(AkxCommonDao.getInstance().updateUserSiteSessionId(site.getSiteHost(), site.getSitePort(), site));
@@ -213,12 +213,12 @@ public class SiteConnListPresenter extends BasePresenterImpl<SiteConnListContrac
             protected void onTaskSuccess(Long l) {
                 super.onTaskSuccess(l);
                 // 存入内存
-                if (ZalyApplication.siteList == null) {
-                    ZalyApplication.siteList = new ArrayList<>();
+                if (KolaApplication.siteList == null) {
+                    KolaApplication.siteList = new ArrayList<>();
                 }
-                ZalyApplication.siteList.add(site);
+                KolaApplication.siteList.add(site);
                 // 切换至该站点
-                ZalyApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
+                KolaApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
                 new SiteUtils().prepareDo(new SiteUtils.SiteUtilsListener() {
                     @Override
                     public void onPrepareSiteMsg(String msg) {
@@ -243,8 +243,8 @@ public class SiteConnListPresenter extends BasePresenterImpl<SiteConnListContrac
             @Override
             protected void onTaskError(Exception e) {
                 ZalyLogUtils.getInstance().errorToInfo(TAG, e.getMessage());
-                if (StringUtils.isNotEmpty(ZalyApplication.getGotoUrl())) {
-                    ZalyApplication.setGotoUrl("");
+                if (StringUtils.isNotEmpty(KolaApplication.getGotoUrl())) {
+                    KolaApplication.setGotoUrl("");
                 }
                 if (null != mView) {
                     mView.onTaskError();
@@ -255,8 +255,8 @@ public class SiteConnListPresenter extends BasePresenterImpl<SiteConnListContrac
             protected void onAPIError(ZalyAPIException zalyAPIException) {
 
                 ZalyLogUtils.getInstance().errorToInfo(TAG, zalyAPIException.getMessage());
-                if (StringUtils.isNotEmpty(ZalyApplication.getGotoUrl())) {
-                    ZalyApplication.setGotoUrl("");
+                if (StringUtils.isNotEmpty(KolaApplication.getGotoUrl())) {
+                    KolaApplication.setGotoUrl("");
                 }
                 if (null != mView) {
                     mView.onTaskError();
@@ -282,7 +282,7 @@ public class SiteConnListPresenter extends BasePresenterImpl<SiteConnListContrac
             }
             return;
         }
-        ZalyApplication.getCfgSP().put(Configs.KEY_CUR_SITE, destSite.getSiteIdentity());
+        KolaApplication.getCfgSP().put(Configs.KEY_CUR_SITE, destSite.getSiteIdentity());
 
         new SiteUtils().prepareDo(new SiteUtils.SiteUtilsListener() {
             @Override
@@ -321,7 +321,7 @@ public class SiteConnListPresenter extends BasePresenterImpl<SiteConnListContrac
 //            @Override
 //            protected void onTaskSuccess(List<Site> sites) {
 //                super.onTaskSuccess(sites);
-//                ZalyApplication.siteList = sites;
+//                KolaApplication.siteList = sites;
 //                if(null != mView) {
 //                    mView.onGetSitesSuccess(sites);
 //                }

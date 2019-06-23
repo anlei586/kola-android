@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -114,7 +114,7 @@ public class BindPhoneActivity extends BaseActivity implements View.OnClickListe
         setCenterTitle(R.string.bind_phone_num);
         currentSite = getIntent().getParcelableExtra(IntentKey.KEY_CURRENT_SITE);
         ZalyLogUtils.getInstance().info(TAG, "current site ==" + currentSite.toString());
-        phoneId = ZalyApplication.getCfgSP().getKey(Configs.PHONE_ID);
+        phoneId = KolaApplication.getCfgSP().getKey(Configs.PHONE_ID);
         if (!StringUtils.isEmpty(phoneId)) {
             phoneEdit.setText(phoneId);
             showUneditable();
@@ -250,7 +250,7 @@ public class BindPhoneActivity extends BaseActivity implements View.OnClickListe
         protected void onTaskSuccess(ApiUserRealNameProto.ApiUserRealNameResponse realNameVerifyResponse) {
             super.onTaskSuccess(realNameVerifyResponse);
             //写入phoneId
-            ZalyApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
+            KolaApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
             phoneEdit.setText(phoneId);
             showUneditable();
             finish();
@@ -281,7 +281,7 @@ public class BindPhoneActivity extends BaseActivity implements View.OnClickListe
 
         public void checkErrorCode(String errorCode) {
             if (errorCode.equals(PHONE_ALREADY_BIND)) {
-                ZalyApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
+                KolaApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
                 phoneEdit.setText(phoneId);
                 showUneditable();
                 Toaster.showInvalidate("手机号已经绑定");

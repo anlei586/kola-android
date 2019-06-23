@@ -1,7 +1,7 @@
 package com.imkola.client.platform.task;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.User;
 import com.imkola.client.site.presenter.impl.SitePresenter;
@@ -43,7 +43,7 @@ public class BaseGenerateNewIdentityTask extends ZalyTaskExecutor.Task<Void, Voi
             return false;
         }
         //一部设备对应一用户密钥对，一设备密钥对，所需要存储在上层配置项
-        SPUtils spUtils = ZalyApplication.getCfgSP();
+        SPUtils spUtils = KolaApplication.getCfgSP();
         spUtils.putKey(Configs.DEVICE_PRI_KEY, deviceKeyPair[0]);
         spUtils.putKey(Configs.DEVICE_PUB_KEY, deviceKeyPair[1]);
 
@@ -63,8 +63,8 @@ public class BaseGenerateNewIdentityTask extends ZalyTaskExecutor.Task<Void, Voi
     @Override
     protected void onTaskError(Exception e) {
         ZalyLogUtils.getInstance().errorToInfo(TAG, e.getMessage());
-        if (StringUtils.isNotEmpty(ZalyApplication.getGotoUrl())) {
-            ZalyApplication.setGotoUrl("");
+        if (StringUtils.isNotEmpty(KolaApplication.getGotoUrl())) {
+            KolaApplication.setGotoUrl("");
         }
         Logger.e(e);
     }
@@ -72,8 +72,8 @@ public class BaseGenerateNewIdentityTask extends ZalyTaskExecutor.Task<Void, Voi
     @Override
     protected void onAPIError(ZalyAPIException zalyAPIException) {
         ZalyLogUtils.getInstance().errorToInfo(TAG, zalyAPIException.getMessage());
-        if (StringUtils.isNotEmpty(ZalyApplication.getGotoUrl())) {
-            ZalyApplication.setGotoUrl("");
+        if (StringUtils.isNotEmpty(KolaApplication.getGotoUrl())) {
+            KolaApplication.setGotoUrl("");
         }
         Logger.e(zalyAPIException);
     }

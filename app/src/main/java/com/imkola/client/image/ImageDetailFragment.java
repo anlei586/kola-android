@@ -12,8 +12,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.bean.ImageInfo;
 import com.imkola.client.bean.Message;
 import com.imkola.client.bean.Site;
@@ -85,14 +85,14 @@ public class ImageDetailFragment extends Fragment implements View.OnClickListene
             @Override
             public boolean onLongClick(View v) {
                 ZalyLogUtils.getInstance().info("shaoye ", "图片开始下载界面");
-                ImageUtils.saveImageToAlbum(ZalyApplication.getContext(), ((BitmapDrawable) image.getDrawable()).getBitmap());
+                ImageUtils.saveImageToAlbum(KolaApplication.getContext(), ((BitmapDrawable) image.getDrawable()).getBitmap());
                 return true;
             }
         });
         fbSaveImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageUtils.saveImageToAlbum(ZalyApplication.getContext(), ((BitmapDrawable) image.getDrawable()).getBitmap());
+                ImageUtils.saveImageToAlbum(KolaApplication.getContext(), ((BitmapDrawable) image.getDrawable()).getBitmap());
             }
         });
 

@@ -10,8 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.Site;
@@ -134,7 +134,7 @@ public class ContactsFragment extends BaseFragment {
                         startActivity(intent);
                     }
                 });
-        if (currentSite == null || ZalyApplication.siteList == null || ZalyApplication.siteList.size() == 0) {
+        if (currentSite == null || KolaApplication.siteList == null || KolaApplication.siteList.size() == 0) {
             contactsAdapter.hideHeader();
             contactsAdapter.removeAllItems();
             bubbleUpdateListener.onContactBubbleChange(false);
@@ -197,7 +197,7 @@ public class ContactsFragment extends BaseFragment {
      * 更新新朋友请求的小气泡和主页底部的小气泡.
      */
     private void refreshNewFriendBubble() {
-        Boolean isApplyFriend = ZalyApplication.getCfgSP().getBoolean(currentSite.getSiteIdentity() + KEY_NEW_APPLY_FRIEND);
+        Boolean isApplyFriend = KolaApplication.getCfgSP().getBoolean(currentSite.getSiteIdentity() + KEY_NEW_APPLY_FRIEND);
         contactsAdapter.refreshNewFriendBubble(isApplyFriend);
         bubbleUpdateListener.onContactBubbleChange(isApplyFriend);
     }
@@ -276,7 +276,7 @@ public class ContactsFragment extends BaseFragment {
             List<UserProto.SimpleUserProfile> simpleUserProfiles = response.getListList();
             if (simpleUserProfiles != null) {
                 CacheDiskUtils.getInstance().put(currentSite.getSiteIdentity() + SiteConfig.FRIEND_LIST, response.toByteArray());
-                //   ZalyApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.FRIEND_LIST, Base64.encodeToString(response.toByteArray(), Base64.NO_WRAP));
+                //   KolaApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.FRIEND_LIST, Base64.encodeToString(response.toByteArray(), Base64.NO_WRAP));
             }
             displayUI(response);
 

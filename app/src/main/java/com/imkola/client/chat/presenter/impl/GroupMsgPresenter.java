@@ -2,7 +2,7 @@ package com.imkola.client.chat.presenter.impl;
 
 import android.os.Bundle;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.AudioInfo;
 import com.imkola.client.bean.ChatSession;
 import com.imkola.client.bean.ImageInfo;
@@ -281,7 +281,7 @@ public class GroupMsgPresenter implements IGroupMsgPresenter {
      */
     @Override
     public void deleteGroupMsg(String msgId) {
-        SiteMessageDao.getInstance(ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress())).deleteGroupMsgById(msgId);
+        SiteMessageDao.getInstance(KolaApplication.getSiteAddressObj(currentSite.getSiteAddress())).deleteGroupMsgById(msgId);
     }
 
     @Override
@@ -488,7 +488,7 @@ public class GroupMsgPresenter implements IGroupMsgPresenter {
 
         @Override
         protected List<Message> executeTask(Void... voids) throws Exception {
-            SiteAddress address = ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress());
+            SiteAddress address = KolaApplication.getSiteAddressObj(currentSite.getSiteAddress());
             return SiteMessageDao.getInstance(address).queryGroupNewMsg(-1, groupId, GROUP_MSG_PAGE_SIZE);
         }
 
@@ -521,7 +521,7 @@ public class GroupMsgPresenter implements IGroupMsgPresenter {
 
         @Override
         protected List<Message> executeTask(Void... voids) throws Exception {
-            return SiteMessageDao.getInstance(ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress())).queryGroupNewMsg(_id, groupId, -1);
+            return SiteMessageDao.getInstance(KolaApplication.getSiteAddressObj(currentSite.getSiteAddress())).queryGroupNewMsg(_id, groupId, -1);
         }
 
         @Override
@@ -575,7 +575,7 @@ public class GroupMsgPresenter implements IGroupMsgPresenter {
         protected List<Message> executeTask(Void... voids) throws Exception {
 
             //////得到群组历史消息记录
-            return SiteMessageDao.getInstance(ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress())).queryGroupHistoryMsg(_id, groupId, GROUP_MSG_PAGE_SIZE);
+            return SiteMessageDao.getInstance(KolaApplication.getSiteAddressObj(currentSite.getSiteAddress())).queryGroupHistoryMsg(_id, groupId, GROUP_MSG_PAGE_SIZE);
         }
 
         @Override

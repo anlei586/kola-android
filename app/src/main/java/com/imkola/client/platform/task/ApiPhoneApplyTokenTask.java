@@ -1,7 +1,7 @@
 package com.imkola.client.platform.task;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -36,8 +36,8 @@ public class ApiPhoneApplyTokenTask extends ZalyTaskExecutor.Task<Void, Void, Ap
     protected void onTaskSuccess(ApiPhoneApplyTokenProto.ApiPhoneApplyTokenResponse apiPhoneApplyTokenResponse) {
         super.onTaskSuccess(apiPhoneApplyTokenResponse);
         //写入phoneId
-        ZalyApplication.getCfgSP().putKey(Configs.PHONE_ID, apiPhoneApplyTokenResponse.getPhoneId());
-        ZalyApplication.getCfgSP().putKey(Configs.PHONE_TOKEN+"_"+site.getSiteAddress(), apiPhoneApplyTokenResponse.getPhoneToken());
+        KolaApplication.getCfgSP().putKey(Configs.PHONE_ID, apiPhoneApplyTokenResponse.getPhoneId());
+        KolaApplication.getCfgSP().putKey(Configs.PHONE_TOKEN+"_"+site.getSiteAddress(), apiPhoneApplyTokenResponse.getPhoneToken());
     }
 
     @Override

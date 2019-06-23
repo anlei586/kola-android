@@ -3,7 +3,7 @@ package com.imkola.client.mvp.presenter;
 import android.util.Base64;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -52,8 +52,8 @@ public class LoginByQRPresenter extends BasePresenterImpl<LoginByQRContract.View
                     String encryptedUserPriKey = jsonObject.getString("prik");
                     String userPubKey = new String(AESUtils.decrypt(tsk, Base64.decode(encryptedUserPubKey, Base64.NO_WRAP)));
                     String userPriKey = new String(AESUtils.decrypt(tsk, Base64.decode(encryptedUserPriKey, Base64.NO_WRAP)));
-                    ZalyApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, userPubKey);
-                    ZalyApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, userPriKey);
+                    KolaApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, userPubKey);
+                    KolaApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, userPriKey);
 
                     //生成本机设备公钥
                     User user = new User();
@@ -100,7 +100,7 @@ public class LoginByQRPresenter extends BasePresenterImpl<LoginByQRContract.View
                     return Long.valueOf(-1);
                 }
                 //一部设备对应一用户密钥对，一设备密钥对，所需要存储在上层配置项
-                SPUtils spUtils = ZalyApplication.getCfgSP();
+                SPUtils spUtils = KolaApplication.getCfgSP();
                 spUtils.putKey(Configs.DEVICE_PRI_KEY, deviceKeyPair[0]);
                 spUtils.putKey(Configs.DEVICE_PUB_KEY, deviceKeyPair[1]);
                 user.setDeviceIdPrik(deviceKeyPair[0]);

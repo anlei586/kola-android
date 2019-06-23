@@ -24,8 +24,8 @@ import android.widget.Toolbar;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.adapter.SiteListAdapter;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.bean.Site;
@@ -186,10 +186,10 @@ public class SiteConnListActivity extends BaseMVPActivity<SiteConnListContract.V
             currentSite = site;
         }
         String userToken = UUID.randomUUID().toString();
-        ZalyApplication.getCfgSP().put(site.getSiteIdentity() + SUFFIX_USER_TOKEN, userToken);
-        String userPrivateKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
-        String userPubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
-        String devicePubKeyPem = ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
+        KolaApplication.getCfgSP().put(site.getSiteIdentity() + SUFFIX_USER_TOKEN, userToken);
+        String userPrivateKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
+        String userPubKeyPem = KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
+        String devicePubKeyPem = KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY);
         String userSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivateKeyPem, userPubKeyPem);
         String deviceSignBase64 = RSAUtils.getInstance().signInBase64String(userPrivateKeyPem, devicePubKeyPem);
         if (site.getRealNameConfig() == ConfigProto.RealNameConfig.REALNAME_YES_VALUE) {
@@ -229,7 +229,7 @@ public class SiteConnListActivity extends BaseMVPActivity<SiteConnListContract.V
                         newSite.setSiteVersion(response.getSiteConfig().getSiteVersion());
                         newSite.setRealNameConfig(response.getSiteConfig().getRealNameConfigValue());
                         newSite.setCodeConfig(response.getSiteConfig().getInviteCodeConfigValue());
-                        final String phoneNo = ZalyApplication.getCfgSP().getKey(Configs.PHONE_ID);
+                        final String phoneNo = KolaApplication.getCfgSP().getKey(Configs.PHONE_ID);
                         SiteConnListActivity.this.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

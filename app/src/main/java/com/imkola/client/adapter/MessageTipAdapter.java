@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.bean.Message;
 import com.imkola.client.bean.TipMsg;
 import com.imkola.client.bean.event.MessageEvent;
@@ -114,7 +114,7 @@ public class MessageTipAdapter extends RecyclerView.Adapter<MessageTipAdapter.Vi
 
                         case TipMsg.TIP_MSG_COPY:
                             Toaster.show(TipMsg.TIP_MSG_FOR_COPY);
-                            ClipboardManager cmb = (ClipboardManager) ZalyApplication.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipboardManager cmb = (ClipboardManager) KolaApplication.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                             cmb.setText(msg.getContent()); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
                             break;
                     }
@@ -130,7 +130,7 @@ public class MessageTipAdapter extends RecyclerView.Adapter<MessageTipAdapter.Vi
 
                         case TipMsg.TIP_MSG_COPY:
                             Toaster.show(TipMsg.TIP_MSG_FOR_COPY);
-                            ClipboardManager cmb = (ClipboardManager) ZalyApplication.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipboardManager cmb = (ClipboardManager) KolaApplication.getContext().getSystemService(Context.CLIPBOARD_SERVICE);
                             cmb.setText(msg.getContent()); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
                             break;
 

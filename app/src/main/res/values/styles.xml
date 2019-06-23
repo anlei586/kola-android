@@ -160,7 +160,7 @@
         <item name="android:layout_marginBottom">@dimen/space_mid</item>
     </style>
 
-    <style name="ZalyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="KolaAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorPrimary">@color/colorPrimary</item>
         <item name="android:colorPrimaryDark">@color/colorPrimary</item>
         <item name="android:colorAccent">@color/colorAccent</item>
@@ -171,11 +171,11 @@
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
 
-    <style name="ZalyAppTheme.TranslucentStatus" parent="ZalyAppTheme">
+    <style name="ZalyAppTheme.TranslucentStatus" parent="KolaAppTheme">
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="noSlideAnim" parent="ZalyAppTheme">
+    <style name="noSlideAnim" parent="KolaAppTheme">
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 

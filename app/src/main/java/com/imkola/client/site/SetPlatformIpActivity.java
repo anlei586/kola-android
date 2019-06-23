@@ -5,8 +5,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.maintab.BaseActivity;
 import com.imkola.client.util.data.StringUtils;
 import com.imkola.client.util.toast.Toaster;
@@ -37,7 +37,7 @@ public class SetPlatformIpActivity extends BaseActivity {
                     Toaster.showInvalidate("请输入IP");
                     return;
                 }
-                ZalyApplication.getCfgSP().put(Configs.PLATFORM_IP, platformIp);
+                KolaApplication.getCfgSP().put(Configs.PLATFORM_IP, platformIp);
                 Toaster.showInvalidate("设置IP成功");
                 hideSoftKey();
                 finish();
@@ -58,7 +58,7 @@ public class SetPlatformIpActivity extends BaseActivity {
     @Override
     public void onLoadData() {
         setCenterTitle("设置平台ip");
-        String platformIp = ZalyApplication.getCfgSP().getString(Configs.PLATFORM_IP);
+        String platformIp = KolaApplication.getCfgSP().getString(Configs.PLATFORM_IP);
         if (StringUtils.isEmpty(platformIp)) {
             platformIpEt.setHint("请输入站点ip");
         } else {

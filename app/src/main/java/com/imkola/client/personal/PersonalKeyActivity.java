@@ -7,8 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.bean.TipMsg;
 import com.imkola.client.maintab.BaseActivity;
 import com.imkola.client.util.toast.Toaster;
@@ -74,9 +74,9 @@ public class PersonalKeyActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onLoadData() {
-        priKey = ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
+        priKey = KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
         priKeyTv.setText("长按复制\n" + priKey);
-        pubKey = ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
+        pubKey = KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
         pubKeyTv.setText("长按复制\n" + pubKey);
     }
 

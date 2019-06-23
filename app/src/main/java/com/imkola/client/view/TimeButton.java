@@ -7,7 +7,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 
 import java.util.HashMap;
 import java.util.Timer;
@@ -83,10 +83,10 @@ public class TimeButton extends AppCompatButton {
      * 和activity的onDestroy()方法同步
      */
     public void onDestroy() {
-        if (ZalyApplication.map == null)
-            ZalyApplication.map = new HashMap<String, Long>();
-        ZalyApplication.map.put(TIME, time);
-        ZalyApplication.map.put(CTIME, System.currentTimeMillis());
+        if (KolaApplication.map == null)
+            KolaApplication.map = new HashMap<String, Long>();
+        KolaApplication.map.put(TIME, time);
+        KolaApplication.map.put(CTIME, System.currentTimeMillis());
         clearTimer();
     }
 
@@ -94,13 +94,13 @@ public class TimeButton extends AppCompatButton {
      * 和activity的onCreate()方法同步
      */
     public void onCreate() {
-        if (ZalyApplication.map == null)
+        if (KolaApplication.map == null)
             return;
-        if (ZalyApplication.map.size() <= 0)// 这里表示没有上次未完成的计时
+        if (KolaApplication.map.size() <= 0)// 这里表示没有上次未完成的计时
             return;
-        long time = System.currentTimeMillis() - ZalyApplication.map.get(CTIME)
-                - ZalyApplication.map.get(TIME);
-        ZalyApplication.map.clear();
+        long time = System.currentTimeMillis() - KolaApplication.map.get(CTIME)
+                - KolaApplication.map.get(TIME);
+        KolaApplication.map.clear();
         if (time > 0)
             return;
         else {

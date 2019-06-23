@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.Site;
 import com.imkola.client.bean.SiteAddress;
 import com.imkola.client.bean.User;
@@ -69,13 +69,13 @@ public class AkxCommonDao {
                     "source) VALUES(?,?,?,?,?,?,?);";
             SQLiteStatement statement = database.compileStatement(sql);
             statement.bindString(1, user.getGlobalUserId());    //身份全局ID
-            statement.bindString(2, ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY));  //加密身份公钥
-            statement.bindString(3, ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));  //加密身份私钥
-            statement.bindString(4, ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PRI_KEY));  //加密设备公钥
-            statement.bindString(5, ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY));  //加密设备公钥
+            statement.bindString(2, KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY));  //加密身份公钥
+            statement.bindString(3, KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));  //加密身份私钥
+            statement.bindString(4, KolaApplication.getCfgSP().getKey(Configs.DEVICE_PRI_KEY));  //加密设备公钥
+            statement.bindString(5, KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY));  //加密设备公钥
             statement.bindString(6, user.getIdentityName());    //身份名称
             statement.bindString(7, user.getIdentitySource());  //身份来源
-            ZalyLogUtils.getInstance().info(TAG, "user_pub_key is " + ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
+            ZalyLogUtils.getInstance().info(TAG, "user_pub_key is " + KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));
             _id = statement.executeInsert();//返回插入的_id
             ZalyLogUtils.getInstance().dbLog(TAG, startTime, sql);
             return _id;
@@ -88,10 +88,10 @@ public class AkxCommonDao {
 
             SQLiteStatement statement = database.compileStatement(sql);
             statement.bindString(1, user.getGlobalUserId());    //身份全局ID
-            statement.bindString(2, ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY));  //加密身份公钥
-            statement.bindString(3, ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));  //加密身份私钥
-            statement.bindString(4, ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PRI_KEY));  //加密设备公钥
-            statement.bindString(5, ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY));  //加密设备公钥
+            statement.bindString(2, KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY));  //加密身份公钥
+            statement.bindString(3, KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY));  //加密身份私钥
+            statement.bindString(4, KolaApplication.getCfgSP().getKey(Configs.DEVICE_PRI_KEY));  //加密设备公钥
+            statement.bindString(5, KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY));  //加密设备公钥
             statement.bindString(6, user.getIdentityName());    //身份名称
             statement.bindString(7, user.getIdentitySource());  //身份来源
             statement.executeUpdateDelete();

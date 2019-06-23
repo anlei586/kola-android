@@ -3,7 +3,7 @@ package com.imkola.client.util;
 import android.text.TextUtils;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.Site;
@@ -62,8 +62,8 @@ public class SiteUtils {
     public static boolean currentContains(Site site) {
         ZalyLogUtils.getInstance().info(TAG, "login site is " + site.getSiteIdentity());
 
-        if (ZalyApplication.siteList != null && ZalyApplication.siteList.size() > 0) {
-            for (Site existingSite : ZalyApplication.siteList) {
+        if (KolaApplication.siteList != null && KolaApplication.siteList.size() > 0) {
+            for (Site existingSite : KolaApplication.siteList) {
                 ZalyLogUtils.getInstance().info(TAG, " existing site is " + existingSite.getSiteIdentity());
                 if (existingSite.getSiteIdentity().equals(site.getSiteIdentity())) {
                     site.setSiteUserId(existingSite.getSiteUserId());
@@ -76,14 +76,14 @@ public class SiteUtils {
 
     public static boolean removeCurrent(Site site) {
         int index = -1;
-        if (ZalyApplication.siteList != null && ZalyApplication.siteList.size() > 0) {
-            for (Site existingSite : ZalyApplication.siteList) {
+        if (KolaApplication.siteList != null && KolaApplication.siteList.size() > 0) {
+            for (Site existingSite : KolaApplication.siteList) {
                 if (existingSite.getSiteIdentity().equals(site.getSiteIdentity())) {
-                    index = ZalyApplication.siteList.indexOf(existingSite);
+                    index = KolaApplication.siteList.indexOf(existingSite);
                 }
             }
             if (index >= 0) {
-                ZalyApplication.siteList.remove(index);
+                KolaApplication.siteList.remove(index);
                 return true;
             }
         }
@@ -116,12 +116,12 @@ public class SiteUtils {
         protected Boolean executeTask(Void... voids) throws Exception {
             //TODO DBChange
             //1.存放任务表 imConnection
-            ZalyDbHelper zalyDbHelper = new ZalyDbHelper(ZalyApplication.getContext());
+            ZalyDbHelper zalyDbHelper = new ZalyDbHelper(KolaApplication.getContext());
             zalyDbHelper.checkBaseTable();
 
             SitePresenter.getInstance().checkCommonBaseTable();
 
-            if (StringUtils.isEmpty(ZalyApplication.getGlobalUserId())) {
+            if (StringUtils.isEmpty(KolaApplication.getGlobalUserId())) {
                 //无身份不检测
                 return false;
             }
@@ -189,15 +189,15 @@ public class SiteUtils {
                 return;
             }
             //获取所有站点
-            ZalyApplication.siteList = sites;
+            KolaApplication.siteList = sites;
             Site currentSite = new Site();
 
             //查找当前站点
-            String curSiteIndentity = ZalyApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
+            String curSiteIndentity = KolaApplication.getCfgSP().getString(Configs.KEY_CUR_SITE, "");
             if (StringUtils.isEmpty(curSiteIndentity)) {
                 for (Site site : sites) {
                     if (site.getSiteStatus() == Site.STATUS_SITE_ONLINE) {
-                        ZalyApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
+                        KolaApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
                         currentSite = site;
                         break;
                     }
@@ -216,7 +216,7 @@ public class SiteUtils {
 //                    return;
                     for (Site site : sites) {
                         if (site.getSiteStatus() == Site.STATUS_SITE_ONLINE) {
-                            ZalyApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
+                            KolaApplication.getCfgSP().put(Configs.KEY_CUR_SITE, site.getSiteIdentity());
                             currentSite = site;
                             break;
                         }
@@ -305,7 +305,7 @@ public class SiteUtils {
                 site.setSiteIcon(response.getSiteConfig().getSiteLogo());
                 site.setSiteVersion(response.getSiteConfig().getSiteVersion());
                 Site curSite = null;
-                for (Site s : ZalyApplication.siteList) {
+                for (Site s : KolaApplication.siteList) {
                     if (s.getSiteIdentity().equals(site.getSiteIdentity())) {
                         curSite = s;
                         break;

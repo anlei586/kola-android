@@ -1,6 +1,6 @@
 package com.imkola.client.group.presenter.impl;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.Group;
@@ -419,7 +419,7 @@ public class GroupProfilePresenter implements IGroupProfilePresenter {
         @Override
         protected void onTaskSuccess(ApiGroupUpdateProfileProto.ApiGroupUpdateProfileResponse apiGroupUpdateProfileResponse) {
             super.onTaskSuccess(apiGroupUpdateProfileResponse);
-            SiteGroupProfileDao.getInstance(ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress())).updateSiteGroupProfile(groupId, groupName);
+            SiteGroupProfileDao.getInstance(KolaApplication.getSiteAddressObj(currentSite.getSiteAddress())).updateSiteGroupProfile(groupId, groupName);
             iView.onChangeGroupNameSucceed(groupName);
         }
 

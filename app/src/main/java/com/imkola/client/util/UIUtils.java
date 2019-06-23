@@ -27,7 +27,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -109,7 +109,7 @@ public class UIUtils {
     }
 
     public static Resources getResources() {
-        return ZalyApplication.getContext().getResources();
+        return KolaApplication.getContext().getResources();
     }
 
     public static DisplayMetrics getDisplayMetrics() {
@@ -124,19 +124,19 @@ public class UIUtils {
     }
 
     public static String getString(int resource) {
-        return ZalyApplication.getContext().getString(resource);
+        return KolaApplication.getContext().getString(resource);
     }
 
     public static int getInt(int resource) {
-        return ZalyApplication.getContext().getResources().getInteger(resource);
+        return KolaApplication.getContext().getResources().getInteger(resource);
     }
 
     public static String getString(int resource, Object... formatArgs) {
-        return ZalyApplication.getContext().getString(resource, formatArgs);
+        return KolaApplication.getContext().getString(resource, formatArgs);
     }
 
     public static int getResourceId(String name) {
-        return getResources().getIdentifier(name, null, ZalyApplication.getContext().getPackageName());
+        return getResources().getIdentifier(name, null, KolaApplication.getContext().getPackageName());
     }
 
     public static Drawable getDrawable(int resource) {
@@ -222,11 +222,11 @@ public class UIUtils {
     }
 
     public static InputMethodManager getInputMethodManager() {
-        return (InputMethodManager) ZalyApplication.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        return (InputMethodManager) KolaApplication.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
 
     public static void hideInputMethod(Activity activity) {
-        InputMethodManager im = ((InputMethodManager) ZalyApplication.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE));
+        InputMethodManager im = ((InputMethodManager) KolaApplication.getContext().getSystemService(Activity.INPUT_METHOD_SERVICE));
         View curFocusView = activity.getCurrentFocus();
         if (curFocusView != null) {
             im.hideSoftInputFromWindow(curFocusView.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
@@ -295,7 +295,7 @@ public class UIUtils {
      */
     public static int getRealScreenHeight() {
         int h = 0;
-        WindowManager windowManager = (WindowManager) ZalyApplication.getContext().getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) KolaApplication.getContext().getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         DisplayMetrics dm = new DisplayMetrics();
         try {

@@ -3,7 +3,7 @@ package com.imkola.client.mvp.presenter;
 import android.util.Base64;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -90,9 +90,9 @@ public class LoginByPhonePresenter extends BasePresenterImpl<LoginByPhoneContrac
                     mView.onLoginPlatformByPhoneError();
                     return;
                 }
-                ZalyApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, pubkey);
-                ZalyApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, prikey);
-                ZalyApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
+                KolaApplication.getCfgSP().putKey(Configs.USER_PUB_KEY, pubkey);
+                KolaApplication.getCfgSP().putKey(Configs.USER_PRI_KEY, prikey);
+                KolaApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
 
                 //生成本机设备公钥
                 User user = new User();
@@ -122,7 +122,7 @@ public class LoginByPhonePresenter extends BasePresenterImpl<LoginByPhoneContrac
                     return false;
                 }
                 //一部设备对应一用户密钥对，一设备密钥对，所需要存储在上层配置项
-                SPUtils spUtils = ZalyApplication.getCfgSP();
+                SPUtils spUtils = KolaApplication.getCfgSP();
                 spUtils.putKey(Configs.DEVICE_PRI_KEY, deviceKeyPair[0]);
                 spUtils.putKey(Configs.DEVICE_PUB_KEY, deviceKeyPair[1]);
 
@@ -179,7 +179,7 @@ public class LoginByPhonePresenter extends BasePresenterImpl<LoginByPhoneContrac
                 }
                 User user = new User();
                 //一部设备对应一用户密钥对，一设备密钥对，所需要存储在上层配置项
-                SPUtils spUtils = ZalyApplication.getCfgSP();
+                SPUtils spUtils = KolaApplication.getCfgSP();
                 spUtils.putKey(Configs.USER_PRI_KEY, userPEMPriKeyStr);
                 spUtils.putKey(Configs.USER_PUB_KEY, userPEMPubKeyStr);
 
@@ -263,7 +263,7 @@ public class LoginByPhonePresenter extends BasePresenterImpl<LoginByPhoneContrac
             protected ApiPlatformRegisterByPhoneProto.ApiPlatformRegisterByPhoneResponse executeTask(Void... voids) throws Exception {
                 ZalyLogUtils.getInstance().info(TAG, " ApiPlatformRegisterTask phoneNum is " + phoneNum);
 
-                SPUtils spUtils = ZalyApplication.getCfgSP();
+                SPUtils spUtils = KolaApplication.getCfgSP();
 
                 //一部设备对应一用户密钥对，一设备密钥对，所需要存储在上层配置项
                 String[] deviceKeyPair = RSAUtils.getInstance().generateNewKeyPairPEMStr();
@@ -288,7 +288,7 @@ public class LoginByPhonePresenter extends BasePresenterImpl<LoginByPhoneContrac
                 user.setGlobalUserId(StringUtils.getGlobalUserIdHash(userPubKeyPem));
                 user.setIdentityName(ServerConfig.LOGIN_WITH_PHONE_NAME);
                 user.setIdentitySource(ServerConfig.LOGIN_WITH_PHONE);
-                ZalyApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
+                KolaApplication.getCfgSP().putKey(Configs.PHONE_ID, phoneNum);
                 SitePresenter.getInstance().insertUserIdentity(user);
                 mView.onRegistPlatformSuccess();
             }

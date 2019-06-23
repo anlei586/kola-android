@@ -1,7 +1,7 @@
 package com.imkola.client.api;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.socket.TransportPackageForResponse;
 import com.imkola.client.util.DeviceUtils;
 import com.akaxin.proto.site.ApiSiteConfigProto;
@@ -53,9 +53,9 @@ public class ApiClientForSite {
      */
     public ApiSiteLoginProto.ApiSiteLoginResponse loginSite(String userSignBase64, String deviceSignBase64, String userToken, String phoneToken) throws Exception {
         ApiSiteLoginProto.ApiSiteLoginRequest request = ApiSiteLoginProto.ApiSiteLoginRequest.newBuilder()
-                .setUserIdPubk(ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY))
+                .setUserIdPubk(KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY))
                 .setUserIdSignBase64(userSignBase64)
-                .setUserDeviceIdPubk(ZalyApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY))
+                .setUserDeviceIdPubk(KolaApplication.getCfgSP().getKey(Configs.DEVICE_PUB_KEY))
                 .setUserDeviceIdSignBase64(deviceSignBase64)
                 .setUserDeviceName(DeviceUtils.getDeviceName())
                 .setUserToken(userToken)

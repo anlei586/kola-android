@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.im.ZalyIM;
 import com.imkola.client.maintab.ActivityCollector;
 import com.imkola.client.maintab.WelcomeActivity;
@@ -60,7 +60,7 @@ public abstract class BaseMVPActivity<V extends BaseView, T extends BasePresente
     }
 
     protected void checkApplication() {
-        if (!ZalyApplication.active && !WelcomeActivity.active) {
+        if (!KolaApplication.active && !WelcomeActivity.active) {
             ActivityCollector.finishAll();
             Intent intent = new Intent(this, WelcomeActivity.class);
             try {

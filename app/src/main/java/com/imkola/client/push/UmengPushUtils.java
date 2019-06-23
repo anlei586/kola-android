@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.imkola.client.BuildConfig;
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.util.log.ZalyLogUtils;
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.IUmengRegisterCallback;
@@ -61,7 +61,7 @@ public class UmengPushUtils {
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
                 ZalyLogUtils.getInstance().info(TAG, "DeviceToken:" + deviceToken);
-                ZalyApplication.getCfgSP().put(Configs.PUSH_TOKEN, deviceToken);
+                KolaApplication.getCfgSP().put(Configs.PUSH_TOKEN, deviceToken);
             }
 
             @Override

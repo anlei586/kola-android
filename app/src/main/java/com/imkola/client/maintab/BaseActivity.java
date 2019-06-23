@@ -17,8 +17,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.bean.Site;
 import com.imkola.client.constant.PackageSign;
 import com.imkola.client.im.IMClient;
@@ -236,7 +236,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * Application 被 GC 后需要重新进入 WelcomeActivity 初始化.
      */
     protected void checkApplication() {
-        if (!ZalyApplication.active && !WelcomeActivity.active) {
+        if (!KolaApplication.active && !WelcomeActivity.active) {
             ActivityCollector.finishAll();
             Intent intent = new Intent(this, WelcomeActivity.class);
             try {

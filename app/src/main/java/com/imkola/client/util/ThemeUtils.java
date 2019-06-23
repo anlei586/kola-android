@@ -2,8 +2,8 @@ package com.imkola.client.util;
 
 import android.graphics.drawable.GradientDrawable;
 
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 
 /**
  * Created by yichao on 2017/11/16.
@@ -18,7 +18,7 @@ public class ThemeUtils {
      */
     public static int  getThemeColor() {
         //todo 需要赋值给变量避免重复get resources 特别是在二维码绘制时
-        return ZalyApplication.getContext().getResources().getColor(R.color.theme_color1);
+        return KolaApplication.getContext().getResources().getColor(R.color.theme_color1);
     }
 
     /**
@@ -27,7 +27,7 @@ public class ThemeUtils {
      * @return
      */
     public static int getWhiteTxtColor() {
-        return ZalyApplication.getContext().getResources().getColor(R.color.white);
+        return KolaApplication.getContext().getResources().getColor(R.color.white);
     }
 
     /**
@@ -36,7 +36,7 @@ public class ThemeUtils {
      * @return
      */
     public static int getMainBgColor() {
-        return ZalyApplication.getContext().getResources().getColor(R.color.bg);
+        return KolaApplication.getContext().getResources().getColor(R.color.bg);
     }
 
     /**

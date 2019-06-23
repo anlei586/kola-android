@@ -1,6 +1,6 @@
 package com.imkola.client.friend.presenter.impl;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.SiteUserAPI;
 import com.imkola.client.bean.Site;
 import com.imkola.client.bean.SiteAddress;
@@ -65,7 +65,7 @@ public class UserProfilePresenter implements IUserProfilePresenter {
     }
 
     public SiteAddress getCurrentSite() {
-        return ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress());
+        return KolaApplication.getSiteAddressObj(currentSite.getSiteAddress());
     }
 
     @Override
@@ -94,7 +94,7 @@ public class UserProfilePresenter implements IUserProfilePresenter {
 
     @Override
     public Long updateSiteUserProfile(UserFriendBean userFriendBean, String siteAddress) {
-        SiteAddress siteAddressObj = ZalyApplication.getSiteAddressObj(siteAddress);
+        SiteAddress siteAddressObj = KolaApplication.getSiteAddressObj(siteAddress);
         return SiteUserProfileDao.getInstance(siteAddressObj).updateSiteUserProfile(userFriendBean);
     }
 

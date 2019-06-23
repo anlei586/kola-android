@@ -17,8 +17,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.imkola.client.Configs;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
 import com.imkola.client.bean.ImageInfo;
 import com.imkola.client.bean.Site;
 import com.imkola.client.util.data.StringUtils;
@@ -63,7 +63,7 @@ public class ImageUtils {
 
 
     private static int getWidthSize() {
-        DisplayMetrics dm = ZalyApplication.getContext().getResources().getDisplayMetrics();
+        DisplayMetrics dm = KolaApplication.getContext().getResources().getDisplayMetrics();
         // return dm.widthPixels/3;
         return 400;
     }

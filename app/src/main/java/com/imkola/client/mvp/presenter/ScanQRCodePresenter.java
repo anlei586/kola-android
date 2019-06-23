@@ -3,7 +3,7 @@ package com.imkola.client.mvp.presenter;
 import android.util.Base64;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ApiClientForPlatform;
 import com.imkola.client.api.ZalyAPIException;
@@ -31,8 +31,8 @@ public class ScanQRCodePresenter extends BasePresenterImpl<ScanQRCodeContract.Vi
             @Override
             protected ApiTempUploadProto.ApiTempUploadResponse executeTask(Void... voids) throws Exception {
                 byte[] tsk = Base64.decode(tskStr, Base64.NO_WRAP);
-                String userPubKey = ZalyApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
-                String userPriKey = ZalyApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
+                String userPubKey = KolaApplication.getCfgSP().getKey(Configs.USER_PUB_KEY);
+                String userPriKey = KolaApplication.getCfgSP().getKey(Configs.USER_PRI_KEY);
                 byte[] encryptedUserPubKey = AESUtils.encrypt(tsk, userPubKey.getBytes());
                 byte[] encryptedUserPriKey = AESUtils.encrypt(tsk, userPriKey.getBytes());
                 HashMap<String, String> map = new HashMap<>();

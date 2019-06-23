@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.SimpleArrayMap;
 import android.util.Base64;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.orhanobut.logger.Logger;
 
 import java.util.Collections;
@@ -47,7 +47,7 @@ public class SPUtils {
     }
 
     private SPUtils(final String spName) {
-        sp = ZalyApplication.getContext().getSharedPreferences(spName, Context.MODE_PRIVATE);
+        sp = KolaApplication.getContext().getSharedPreferences(spName, Context.MODE_PRIVATE);
     }
 
     /**

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.util.Base64;
 
 import com.imkola.client.Configs;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.User;
 
@@ -80,7 +80,7 @@ public class LoginPresenter implements ILoginPresenter {
             }
             User user = new User();
             //一部设备对应一用户密钥对，一设备密钥对，所需要存储在上层配置项
-            SPUtils spUtils = ZalyApplication.getCfgSP();
+            SPUtils spUtils = KolaApplication.getCfgSP();
             spUtils.putKey(Configs.USER_PRI_KEY, userPEMPriKeyStr);
             spUtils.putKey(Configs.USER_PUB_KEY, userPEMPubKeyStr);
 
@@ -130,7 +130,7 @@ public class LoginPresenter implements ILoginPresenter {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 loginView.getAppContext().startActivity(intent);
             } else {
-                ZalyApplication.setGotoUrl("");
+                KolaApplication.setGotoUrl("");
                 Toaster.showInvalidate("生成匿名账户失败，请稍候再试");
             }
             if (loginView != null)
@@ -140,8 +140,8 @@ public class LoginPresenter implements ILoginPresenter {
         @Override
         protected void onTaskError(Exception e) {
             ZalyLogUtils.getInstance().errorToInfo(TAG, e.getMessage());
-            if (StringUtils.isNotEmpty(ZalyApplication.getGotoUrl())) {
-                ZalyApplication.setGotoUrl("");
+            if (StringUtils.isNotEmpty(KolaApplication.getGotoUrl())) {
+                KolaApplication.setGotoUrl("");
             }
             if (loginView != null)
                 loginView.hideProgressDialog();
@@ -150,8 +150,8 @@ public class LoginPresenter implements ILoginPresenter {
         @Override
         protected void onAPIError(ZalyAPIException zalyAPIException) {
             ZalyLogUtils.getInstance().errorToInfo(TAG, zalyAPIException.getMessage());
-            if (StringUtils.isNotEmpty(ZalyApplication.getGotoUrl())) {
-                ZalyApplication.setGotoUrl("");
+            if (StringUtils.isNotEmpty(KolaApplication.getGotoUrl())) {
+                KolaApplication.setGotoUrl("");
             }
             if (loginView != null)
                 loginView.hideProgressDialog();

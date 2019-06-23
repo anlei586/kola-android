@@ -1,6 +1,6 @@
 package com.imkola.client.api;
 
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.Site;
 import com.imkola.client.bean.SiteAddress;
 import com.imkola.client.bean.event.AppEvent;
@@ -53,7 +53,7 @@ public class SiteUserAPI {
      */
     public UserProto.SimpleUserProfile getSimpleUserProfile(final Site site, final String siteUserId) throws Exception {
         //query from db
-        final SiteAddress address = ZalyApplication.getSiteAddressObj(site.getSiteAddress());
+        final SiteAddress address = KolaApplication.getSiteAddressObj(site.getSiteAddress());
         UserProto.SimpleUserProfile simpleUserProfile = SiteUserProfileDao.getInstance(address).queryFriend(siteUserId);
         if (simpleUserProfile != null && StringUtils.isNotEmpty(simpleUserProfile.getSiteUserId())) {
             return simpleUserProfile;

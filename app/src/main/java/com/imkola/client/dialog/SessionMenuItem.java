@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.ChatSession;
 import com.imkola.client.bean.Site;
 
@@ -70,7 +70,7 @@ public class SessionMenuItem extends Dialog {
         @Override
         protected Boolean executeTask(Void... voids) throws Exception {
             if (mSession != null && !StringUtils.isEmpty(mSession.getChatSessionId())) {
-                int flag = SiteChatSessionDao.getInstance(ZalyApplication.getSiteAddressObj(currentSite.getSiteAddress())).deleteSessionById(mSession.getChatSessionId());
+                int flag = SiteChatSessionDao.getInstance(KolaApplication.getSiteAddressObj(currentSite.getSiteAddress())).deleteSessionById(mSession.getChatSessionId());
                 ZalyLogUtils.getInstance().info(TAG, " delete session flag ==" + flag);
                 ZalyLogUtils.getInstance().info(TAG, " delete session id  ==" + mSession.getChatSessionId());
                 ZalyLogUtils.getInstance().info(TAG, " delete session getType  ==" + mSession.getType());

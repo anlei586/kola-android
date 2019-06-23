@@ -14,7 +14,7 @@ import com.akaxin.proto.client.ImStcMessageProto;
 import com.akaxin.proto.client.ImStcNoticeProto;
 import com.akaxin.proto.core.CoreProto;
 import com.orhanobut.logger.Logger;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.bean.AudioInfo;
 import com.imkola.client.bean.ImageInfo;
 import com.imkola.client.bean.Message;
@@ -116,7 +116,7 @@ public class IMClientToClientRequestHandler implements IMessageHandler {
             intent.putExtra(ZalyIM.KEY_PLATFORM_PUSH_TITLE, request.getPushTitle());
             intent.putExtra(ZalyIM.KEY_PLATFORM_PUSH_CONTENT, request.getPushAlert());
             intent.putExtra(ZalyIM.KEY_PLATFORM_PUSH_JUMP, request.getPushJump());
-            ZalyApplication.getContext().sendBroadcast(intent);
+            KolaApplication.getContext().sendBroadcast(intent);
         } catch (Exception e) {
             Logger.e(TAG, e);
         }
@@ -137,7 +137,7 @@ public class IMClientToClientRequestHandler implements IMessageHandler {
             intent.setPackage(PackageSign.getPackage());
             intent.putExtra(ZalyIM.KEY_NOTICE_SITE_IDENTITY, this.imClient.imConnection.getConnSiteIdentity());
             intent.putExtra(ZalyIM.KEY_NOTICE_TYPE, request.getTypeValue());
-            ZalyApplication.getContext().sendBroadcast(intent);
+            KolaApplication.getContext().sendBroadcast(intent);
 
         } catch (Exception e) {
             Logger.e(TAG, e);
@@ -214,10 +214,10 @@ public class IMClientToClientRequestHandler implements IMessageHandler {
                                     break;
                             }
 
-                            int updateStatusFlag = SiteMessageDao.getInstance(ZalyApplication.getSiteAddressObj(siteAddress)).updateU2MsgStatusForSend(msgId, serverMsgTime, messageStatus);
+                            int updateStatusFlag = SiteMessageDao.getInstance(KolaApplication.getSiteAddressObj(siteAddress)).updateU2MsgStatusForSend(msgId, serverMsgTime, messageStatus);
                             // 如果不是单人消息则去群组表中更新数据, 回写时间
                             if (updateStatusFlag == 0) {
-                                if (SiteMessageDao.getInstance(ZalyApplication.getSiteAddressObj(siteAddress)).updateGroupMsgStatusForSend(msgId, serverMsgTime, messageStatus) == 0) {
+                                if (SiteMessageDao.getInstance(KolaApplication.getSiteAddressObj(siteAddress)).updateGroupMsgStatusForSend(msgId, serverMsgTime, messageStatus) == 0) {
                                 }
                             }
 

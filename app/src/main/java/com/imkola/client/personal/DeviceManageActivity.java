@@ -8,7 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.imkola.client.R;
-import com.imkola.client.ZalyApplication;
+import com.imkola.client.KolaApplication;
 import com.imkola.client.api.ApiClient;
 import com.imkola.client.api.ZalyAPIException;
 import com.imkola.client.bean.Site;
@@ -90,7 +90,7 @@ public class DeviceManageActivity extends BaseActivity {
 
         @Override
         protected void onCacheTask() {
-            String cacheStr = ZalyApplication.getCfgSP().getString(currentSite.getSiteIdentity() + SiteConfig.DEVICE_LIST);
+            String cacheStr = KolaApplication.getCfgSP().getString(currentSite.getSiteIdentity() + SiteConfig.DEVICE_LIST);
             if (!StringUtils.isEmpty(cacheStr)) {
                 byte[] data = Base64.decode(cacheStr, Base64.NO_WRAP);
                 try {
@@ -112,7 +112,7 @@ public class DeviceManageActivity extends BaseActivity {
             super.onTaskSuccess(apiDeviceBoundListResponse);
             if (apiDeviceBoundListResponse != null && apiDeviceBoundListResponse.getListList() != null &&
                     apiDeviceBoundListResponse.getListList().size() > 0) {
-                ZalyApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.DEVICE_LIST, Base64.encodeToString(apiDeviceBoundListResponse.toByteArray(), Base64.NO_WRAP));
+                KolaApplication.getCfgSP().put(currentSite.getSiteIdentity() + SiteConfig.DEVICE_LIST, Base64.encodeToString(apiDeviceBoundListResponse.toByteArray(), Base64.NO_WRAP));
                 displayUI(apiDeviceBoundListResponse);
 
             } else {
